@@ -2,34 +2,18 @@ const express = require('express')
 
 module.exports = ({
   services: {
-    users: usersService
+    user: userService
   },
   log
 }) => {
   const router = new express.Router()
 
-  // Getting a specific user
-  router.get('/api/users', async (req, res, next) => {
-    try {
-      const { email } = req.query
-      const response = await usersService.findByEmail(email)
-
-      if (response.success) {
-        return res.status(200).send(response)
-      }
-      res.status(404).send(response)
-    } catch (err) {
-      log.error(err)
-      res.status(500).send(err.message)
-    }
-  })
-
   // Login user
-  router.post('/api/login', async (req, res, next) => {
+  router.post('/login', async (req, res, next) => {
     try {
       const data = req.body
 
-      const response = await usersService.login(data)
+      const response = await userService.login(data)
 
       if (response.success) {
         res.status(200).send(response)
@@ -43,11 +27,11 @@ module.exports = ({
   })
 
   // Creating new user
-  router.post('/api/users', async (req, res, next) => {
+  router.post('/users', async (req, res, next) => {
     try {
       const data = req.body
 
-      const response = await usersService.create(data)
+      const response = await userService.create(data)
 
       if (response.success) {
         res.status(201).send(response)

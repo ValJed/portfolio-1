@@ -4,32 +4,39 @@ const http = require('../interfaces/http')
 const logger = require('../infra/logger')()
 
 // Services
-const ProjectsServices = require('./services/projects')
+const ProjectService = require('./services/projectService')
+const userService = require('./services/userService')
 
 // Infra
 const database = require('../infra/mongodb')
 
 // Repositories
-const usersRepository = require('../infra/mongodb/repositories/users')
-const ProjectsRepository = require('../infra/mongodb/repositories/projects')
+const userRepository = require('../infra/mongodb/repositories/userRepo')
+const ProjectsRepository = require('../infra/mongodb/repositories/projectRepo')
 
 const jwt = require('../infra/jwt')
-// const encrypt = require('../infra/encryption')
+const encrypt = require('../infra/encryption')
 
 const startApp = async () => {
   const client = await database.connect(config.dbConfig)
 
-  const usersRepo = usersRepository(database.db())
-  const projectsRepo = ProjectsRepository(database.db())
+  const userRepo = userRepository(database.db())
+  const projectRepo = ProjectsRepository(database.db())
 
   http.start({
     config,
     database: client,
     log: logger,
     services: {
-      projects: ProjectsServices({
-        usersRepo,
-        projectsRepo,
+      project: ProjectService({
+        projectRepo,
+        jwt: jwt(config),
+        log: logger
+      }),
+      user: userService({
+        userRepo,
+        projectRepo,
+        encrypt,
         jwt: jwt(config),
         log: logger
       })

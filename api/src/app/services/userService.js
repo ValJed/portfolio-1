@@ -1,14 +1,14 @@
 const userEntity = require('../../domain/User')
 
 module.exports = ({
-  usersRepo,
-  projectsRepo,
+  userRepo,
+  projectRepo,
   encrypt,
   jwt,
   log
 }) => {
   const findAll = async () => {
-    const users = await usersRepo.find()
+    const users = await userRepo.find()
 
     if (users && users.length) {
       return {
@@ -23,7 +23,7 @@ module.exports = ({
   }
 
   const findByEmail = async (email) => {
-    const user = await usersRepo.findUserByEmail(email)
+    const user = await userRepo.findUserByEmail(email)
 
     if (user) {
       return {
@@ -36,8 +36,8 @@ module.exports = ({
     }
   }
 
-  const create = async ({ username, email, password, checkPassword }) => {
-    const existingUser = await usersRepo.findUserByEmail(email)
+  const create = async ({ username, email, password }) => {
+    const existingUser = await userRepo.findByUsername(username)
 
     if (existingUser) {
       return {
@@ -46,18 +46,11 @@ module.exports = ({
       }
     }
 
-    if (password !== checkPassword) {
-      return {
-        success: false,
-        errors: ['Your password validation shoyld match your password']
-      }
-    }
-
     const { hash, salt } = await encrypt.encryptPsw(password)
 
     const newUser = userEntity({ username, email, hash, salt })
 
-    const res = await usersRepo.create(newUser)
+    const res = await userRepo.create(newUser)
 
     if (res) {
       return {
@@ -66,8 +59,8 @@ module.exports = ({
     }
   }
 
-  const login = async ({ email, password }) => {
-    const user = await usersRepo.findUserByEmail(email)
+  const login = async ({ username, password }) => {
+    const user = await userRepo.findByUsername(username)
 
     if (!user) {
       return {
@@ -79,7 +72,7 @@ module.exports = ({
     const isPasswordValid = await encrypt.comparePsw(password, user.password.hash, user.password.salt)
 
     if (isPasswordValid) {
-      const projects = await projectsRepo.findUserProjects(user._id)
+      const projects = await projectRepo.findAll()
 
       delete user.password
 

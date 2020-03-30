@@ -1,14 +1,12 @@
 const { ObjectID } = require('mongodb')
 
 module.exports = (userId, name) => {
-  const user = {
+  const project = {
     name,
     img: '',
-    description: '',
-    ownersIds: [ObjectID(userId)],
-    blocks: [],
+    content: '',
     CreatedAt: new Date()
   }
 
-  return user
+  return project
 }

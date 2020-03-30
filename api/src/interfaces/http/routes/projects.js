@@ -9,11 +9,9 @@ module.exports = ({
   const router = new express.Router()
 
   // Getting all user projects
-  router.get('/api/projects', async (req, res, next) => {
+  router.get('/projects', async (req, res, next) => {
     try {
-      const { userId } = req.body
-
-      const response = projectsService.getUserProjects(userId)
+      const response = projectsService.getProjects()
 
       if (response.success) {
         res.status(200).send(response)
@@ -27,7 +25,7 @@ module.exports = ({
   })
 
   // Creating a new project
-  router.post('/api/projects', async (req, res, next) => {
+  router.post('/projects', async (req, res, next) => {
     try {
       const { _id, projectName } = req.body
 
@@ -45,7 +43,7 @@ module.exports = ({
   })
 
   // Deleting project
-  router.delete('/api/projects', async (req, res, next) => {
+  router.delete('/projects', async (req, res, next) => {
     try {
       const { userId, projectId } = req.body
 

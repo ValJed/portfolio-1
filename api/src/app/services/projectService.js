@@ -1,14 +1,14 @@
 const ProjectEntity = require('../../domain/Project')
 
 module.exports = ({
-  usersRepo,
+  // usersRepo,
   projectsRepo,
   encrypt,
   jwt,
   log
 }) => {
-  const getUserprojects = async (userId) => {
-    const projects = await usersRepo.findUserProjects(userId)
+  const getprojects = async () => {
+    const projects = await projectsRepo.findAll()
 
     if (projects && projects.length) {
       return {
@@ -28,20 +28,12 @@ module.exports = ({
     const createdProject = await projectsRepo.createProject(project)
 
     if (createdProject.result.ok) {
-      const updatedUser = await usersRepo.addProjectToUser(userId, createdProject.insertedId)
-
-      if (updatedUser.value) {
-        return {
-          success: true,
-          project: {
-            _id: createdProject.insertedId,
-            ...project
-          }
-        }
-      }
       return {
-        success: false,
-        errors: ['User couldn\'t have been updated']
+        success: true,
+        project: {
+          _id: createdProject.insertedId,
+          ...project
+        }
       }
     }
 
@@ -51,16 +43,13 @@ module.exports = ({
     }
   }
 
-  const deleteProject = async (userId, projectId) => {
-    const deletedUserProject = await usersRepo.deleteUserProject(userId, projectId)
+  const updateProject = async (project) => {
+    const updatedProject = await projectsRepo.updateProject(project)
 
-    if (!deletedUserProject.value) {
-      return {
-        success: false,
-        errors: ['User did not has been updated']
-      }
-    }
+    console.log('updatedProject ===> ', require('util').inspect(updatedProject, { colors: true, depth: 2 }))
+  }
 
+  const deleteProject = async (projectId) => {
     const deletedProject = await projectsRepo.deleteProject(projectId)
 
     if (deletedProject.result.ok) {
@@ -77,8 +66,9 @@ module.exports = ({
   }
 
   return {
-    getUserprojects,
+    getprojects,
     createProject,
+    updateProject,
     deleteProject
   }
 }
