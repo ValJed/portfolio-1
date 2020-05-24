@@ -6,7 +6,9 @@ const repository = (db) => {
   return {
     find: () => UsersDb.find().toArray(),
 
-    findUserByEmail: (email) => UsersDb.findOne({ email }),
+    findByUsername: (username) => UsersDb.findOne({ username }),
+
+    // findByUsername: (username) => UsersDb.findOne({ email }),
 
     findUserById: (id) => UsersDb.findOne({ _id: ObjectID(id) }),
 

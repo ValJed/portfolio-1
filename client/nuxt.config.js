@@ -23,25 +23,37 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/scss/main.scss'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/directives.js',
+    { src: '~/plugins/notifications.js', ssr: false },
+    '~/plugins/modal.js'
   ],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources'
   ],
+
+  styleResources: {
+    scss: [
+      '@/assets/scss/mixins/*.scss'
+    ]
+  },
   /*
   ** Nuxt.js modules
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/svg-sprite'
   ],
   /*
   ** Axios module configuration

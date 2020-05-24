@@ -7,8 +7,6 @@ module.exports = ({ username, email, hash, salt }) => {
       hash,
       salt
     },
-    teams: [],
-    projectsIds: [],
     CreatedAt: new Date()
   }
 

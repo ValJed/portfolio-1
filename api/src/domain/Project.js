@@ -1,14 +1,12 @@
-const { ObjectID } = require('mongodb')
+// const { ObjectID } = require('mongodb')
 
-module.exports = (userId, name) => {
-  const user = {
+module.exports = (name, content, img) => {
+  const project = {
     name,
-    img: '',
-    description: '',
-    ownersIds: [ObjectID(userId)],
-    blocks: [],
+    img,
+    content,
     CreatedAt: new Date()
   }
 
-  return user
+  return project
 }

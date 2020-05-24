@@ -6,6 +6,7 @@ const routes = require('./routes')
 const start = ({
   config,
   database,
+  upload,
   log,
   services
 }) => {
@@ -14,13 +15,15 @@ const start = ({
   app.disable('x-powered-by')
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))
-  app.use(express.static('api/public'))
+  app.use('/api', express.static('public'))
   app.use(helmet())
   app.use(cors(corsConfig))
 
   app.use('/api', routes.map((route) => {
     return route({
       services,
+      config,
+      upload,
       log
     })
   }))
