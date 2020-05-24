@@ -17,5 +17,8 @@ module.exports = {
   jwtConfig: {
     secret: 'trytocrackmykeybitch'
   },
+  uploadConfig: {
+    path: 'public/uploads'
+  },
   logConfig: {}
 }

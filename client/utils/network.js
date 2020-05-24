@@ -2,8 +2,8 @@
 import axios from 'axios'
 import { apiConfig } from './config.js'
 
-const get = async (route, params) => {
-  const token = getToken()
+const get = async ({ route, params, sendToken = true }) => {
+  const token = sendToken && getToken()
   const headers = {
     ...token ? { Authorization: `Bearer ${token}` } : {}
   }
@@ -18,7 +18,7 @@ const get = async (route, params) => {
   } catch (err) {
     console.error(
       `Error during get request on API:
-      ${err}`
+      ${err.response}`
     )
     return err.response
   }
@@ -40,7 +40,7 @@ const put = async (route, data) => {
   } catch (err) {
     console.error(
       `Error trying to put request on API:
-      ${err}`
+      ${err.response}`
     )
     return err.response
   }
@@ -62,7 +62,7 @@ const post = async (route, data = {}) => {
   } catch (err) {
     console.error(
       `Error during post request on API:
-      ${err}`
+      ${err.response}`
     )
     return err.response
   }
@@ -84,7 +84,7 @@ const del = async (route, data) => {
   } catch (err) {
     console.error(
       `Error trying to put request on API:
-      ${err}`
+      ${err.response}`
     )
     return err.response
   }

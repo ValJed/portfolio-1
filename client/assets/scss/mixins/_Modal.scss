@@ -1,0 +1,43 @@
+@mixin modal-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+@mixin modal {
+  border: solid 2px #000;
+  border-radius: 8px;
+  background-color: #fff;
+
+  h2 {
+    background-color: #000;
+    color: #fff;
+    padding: 15px;
+  }
+}
+
+@mixin modal-content {
+  padding: 20px;
+}
+
+@mixin modal-transition {
+  .fade-enter-active, .fade-leave-active {
+    transition: all .3s;
+    .modal-container {
+      transition: all .3s;
+    }
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+    .modal-container {
+      top: calc(50% - 23%);
+    }
+  }
+}

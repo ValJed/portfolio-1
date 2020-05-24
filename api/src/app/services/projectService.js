@@ -1,56 +1,58 @@
 const ProjectEntity = require('../../domain/Project')
+const fs = require('fs')
+const path = require('path')
 
 module.exports = ({
   // usersRepo,
-  projectsRepo,
-  encrypt,
+  projectRepo,
+  imageRepo,
+  uploadConfig,
   jwt,
   log
 }) => {
-  const getprojects = async () => {
-    const projects = await projectsRepo.findAll()
+  const getProjects = async () => {
+    const projects = await projectRepo.findAll()
 
-    if (projects && projects.length) {
-      return {
-        success: true,
-        projects
-      }
+    if (projects && Array.isArray(projects)) {
+      return projects
     }
-    return {
-      success: false,
-      errors: ['No projects found for this user']
-    }
+
+    throw new Error('Error when requesting projects.')
   }
 
-  const createProject = async (userId, projectName) => {
-    const project = ProjectEntity(userId, projectName)
+  const createProject = async (name, content, img) => {
+    const project = ProjectEntity(name, content, img)
 
-    const createdProject = await projectsRepo.createProject(project)
+    const createdProject = await projectRepo.createProject(project)
 
-    if (createdProject.result.ok) {
-      return {
-        success: true,
-        project: {
-          _id: createdProject.insertedId,
-          ...project
-        }
-      }
+    if (!createdProject.result.ok) {
+      throw new Error('Project couldn\'t have been created')
     }
 
     return {
-      success: false,
-      errors: ['Project couldn\'t have been created']
+      _id: createdProject.insertedId,
+      ...project
     }
   }
 
-  const updateProject = async (project) => {
-    const updatedProject = await projectsRepo.updateProject(project)
+  const updateProject = async (id, name, content, img) => {
+    const project = {
+      name,
+      content,
+      img
+    }
 
-    console.log('updatedProject ===> ', require('util').inspect(updatedProject, { colors: true, depth: 2 }))
+    const updatedProject = await projectRepo.updateProject(id, project)
+
+    if (updatedProject.ok && updatedProject.value) {
+      return updatedProject.value
+    }
+
+    throw new Error('Error when updating project in database.')
   }
 
   const deleteProject = async (projectId) => {
-    const deletedProject = await projectsRepo.deleteProject(projectId)
+    const deletedProject = await projectRepo.deleteProject(projectId)
 
     if (deletedProject.result.ok) {
       return {
@@ -65,10 +67,59 @@ module.exports = ({
     }
   }
 
+  const getImages = async () => {
+    const images = await imageRepo.findAll()
+
+    return images
+  }
+
+  const createImage = async (fileName) => {
+    const image = {
+      name: fileName
+    }
+
+    const { insertedCount, insertedId } = await imageRepo.createOne(image)
+
+    if (insertedCount === 1) {
+      return {
+        _id: insertedId,
+        name: fileName
+      }
+    }
+
+    throw new Error('Error when inserting image in database.')
+  }
+
+  const unlinkImg = (pathToFile, name) => {
+    return new Promise((resolve, reject) => {
+      fs.unlink(path.join(pathToFile, name), (err) => {
+        if (err) {
+          reject(err)
+        }
+        resolve()
+      })
+    })
+  }
+
+  const deleteImage = async (id, name) => {
+    const { deletedCount } = await imageRepo.deleteOne(id)
+
+    if (deletedCount !== 1) {
+      throw new Error('Error when deleting image reference in database.')
+    }
+
+    const pathToFile = path.join(process.cwd(), uploadConfig.path)
+
+    await unlinkImg(pathToFile, name)
+  }
+
   return {
-    getprojects,
+    getProjects,
     createProject,
     updateProject,
-    deleteProject
+    deleteProject,
+    getImages,
+    createImage,
+    deleteImage
   }
 }

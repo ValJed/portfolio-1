@@ -1,0 +1,33 @@
+.edit-project {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  height: 100%;
+  h3 {
+    margin: 0 0 15px;
+  }
+  .create-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  &-header {
+    display: flex;
+    padding-bottom: 15px;
+    label {
+      display: block;
+    }
+    input {
+      margin: 10px 0;
+    }
+  }
+  &-img {
+    height: 100%;
+    width: 100%;
+    margin: 0 90px 0 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}

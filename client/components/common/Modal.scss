@@ -1,0 +1,19 @@
+@include modal-transition;
+
+.modal {
+  &-container {
+    @include modal-container;
+  }
+
+  @include modal;
+  padding: 20px;
+  width: 300px;
+  top: calc(50% - 20%);
+  left: calc(50% - 20%);
+  h3 {
+    margin: 0 0 2rem 0;
+  }
+  button:first-of-type {
+    margin-right: 10px;
+  }
+}

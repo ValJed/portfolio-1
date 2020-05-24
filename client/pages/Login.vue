@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <h1>Log to admin your portfolio</h1>
-    <form relo="form">
+    <form>
       <label>Username :</label>
       <input v-model="form.username" type="text">
       <label>Password :</label>
@@ -14,7 +13,6 @@
 </template>
 
 <script>
-// import Logo from '~/components/Logo.vue'
 import { post } from '../utils/network'
 
 export default {
@@ -31,6 +29,10 @@ export default {
       const { status, data } = await post('login', form)
 
       if (status === 200) {
+        const date = new Date()
+        date.setDate(date.getDate() + 1)
+        document.cookie = `portfolio-token=${data.token}; expires=${date}.`
+
         this.$router.push({ path: '/admin' })
       }
     }
@@ -38,6 +40,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
-</style>
+<style src="./Login.scss" lang="scss" scoped />

@@ -1,0 +1,27 @@
+.editor {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  height: 100%;
+  &-menu {
+    button {
+      margin: 0 5px 5px 0;
+
+      &.is-active {
+        box-shadow: 4px -4px #000;
+      }
+    }
+  }
+  &-content {
+    // flex: 1;
+    overflow-y: auto;
+    @include project-content;
+
+    .ProseMirror {
+      outline: none;
+      min-height: 100%;
+      padding: 7px 0;
+    }
+  }
+}

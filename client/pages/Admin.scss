@@ -1,0 +1,70 @@
+html {
+  height: 100vh;
+}
+
+// body,
+// #__nuxt,
+// #__layout,
+// #__layout > div,
+// .container {
+//   height: 100%;
+// }
+
+.header {
+  background: #000;
+  padding: 15px 30px;
+  h1 {
+    color: #fff;
+    margin: 0;
+    text-align: left;
+  }
+}
+.container {
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+}
+.projects {
+  height: calc(100% - 68px);
+  display: flex;
+  flex: 1 1 auto;
+  padding: 30px 30px 0;
+  > div {
+    width: 50%;
+  }
+  &-edition {
+    .editor {
+      height: 100%;
+      // display: flex;
+      // flex-flow: column;
+      // align-items: stretch;
+      .content {
+        >div {
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+.notifications {
+  padding: 10px;
+  margin: 10px 10px 5px;
+  font-size: 14px;
+  border-radius: 5px;
+  color: #ffffff;
+  background: #44A4FC;
+
+  &.warn {
+    background: #d35400;
+  }
+
+  &.error {
+    background: #c0392b;
+  }
+
+  &.success {
+    background: turquoise;
+  }
+}
