@@ -1,0 +1,56 @@
+header {
+  display: flex;
+  height: 7rem;
+  padding: 1rem 3rem;
+  max-width: 1800px;
+  margin: 0 auto;
+
+  h1 {
+    color: #fff;
+    @include mobile-only {
+
+    }
+  }
+
+  @include tablet-portrait {
+    align-items: center;
+    flex-flow: row;
+    justify-content: space-between;
+  }
+
+  @include mobile-only {
+    flex-flow: column;
+  }
+
+  .menu {
+    display: flex;
+
+    li {
+      cursor: pointer;
+    }
+
+    @include tablet-portrait {
+      flex-flow: row;
+      font-family: 'Space Mono';
+      font-size: 1rem;
+      color: #fff;
+      letter-spacing: 2px;
+      opacity: 0.5;
+      li {
+        margin-right: 2.3rem;
+        &.active {
+          font-weight: bold;
+          opacity: 1;
+        }
+      }
+    }
+
+    @include mobile-only {
+      align-items: center;
+      flex-flow: column;
+      font-family: 'Eczar';
+      font-size: 5rem;
+      color: $secondary ;
+    }
+  }
+}
