@@ -49,13 +49,13 @@
                 @click="insertImage(image.name)"
               >
                 <span class="img-delete" @click.stop="deleteImg(image)">
-                  <icon name="trash3" color="#fff" :size="1.2" />
+                  <icon name="trash3" fill="#fff" width="1.2rem" height="1.2rem" />
                 </span>
                 <span class="img-main" @click.stop="updateMainImg(image)">
-                  <icon name="image" color="#fff" :size="1.2" />
+                  <icon name="image" fill="#fff" width="1.2rem" height="1.2rem" />
                 </span>
                 <div class="img-add">
-                  <icon name="cross" color="#fff" :size="1.2" />
+                  <icon name="cross" fill="#fff" width="1.2rem" height="1.2rem" />
                 </div>
               </li>
             </ul>

@@ -1,6 +1,6 @@
 header {
   display: flex;
-  height: 7rem;
+  height: 5rem;
   padding: 1rem 3rem;
   max-width: 1800px;
   margin: 0 auto;
@@ -9,6 +9,48 @@ header {
     color: #fff;
     @include mobile-only {
 
+    }
+  }
+
+  .logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .burger {
+      position: relative;
+      width: 25px;
+      height: 15px;
+      cursor: pointer;
+      > div {
+        position: absolute;
+        height: 1.5px;
+        background-color: #fff;
+        transition: all .3s ease-in-out;
+        &:first-child {
+          top: 0;
+          right: 0;
+          width: 25px;
+        }
+        &:last-child {
+          top: 10px;
+          right: 0;
+          width: 15px;
+        }
+      }
+      &.opened {
+        > div {
+          width: 25px;
+          &:first-child {
+            top: 5px;
+            transform: rotate(-45deg);
+          }
+          &:last-child {
+            top: 5px;
+            transform: rotate(45deg);
+          }
+        }
+      }
     }
   }
 
@@ -24,6 +66,7 @@ header {
 
   .menu {
     display: flex;
+    z-index: 10;
 
     li {
       cursor: pointer;
@@ -35,9 +78,9 @@ header {
       font-size: 1rem;
       color: #fff;
       letter-spacing: 2px;
-      opacity: 0.5;
       li {
-        margin-right: 2.3rem;
+        margin-left : 2.3rem;
+        opacity: 0.5;
         &.active {
           font-weight: bold;
           opacity: 1;
@@ -46,11 +89,30 @@ header {
     }
 
     @include mobile-only {
+      position: absolute;
       align-items: center;
       flex-flow: column;
-      font-family: 'Eczar';
-      font-size: 5rem;
-      color: $secondary ;
+      background-color: $primary;
+      top: 5rem;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 5rem);
+      overflow: hidden;
+
+      li {
+        margin: 3rem 0;
+
+        &:first-child {
+          margin-top: 5rem;
+        }
+      }
     }
+  }
+
+  .menu-enter-active, .menu-leave-active {
+    transition: all .3s ease-in;
+  }
+  .menu-enter, .menu-leave-to {
+    opacity: 0;
   }
 }

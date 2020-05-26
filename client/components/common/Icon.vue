@@ -21,13 +21,23 @@ export default {
       type: String,
       required: true
     },
-    size: {
-      default: 0.8,
-      type: Number,
+    width: {
+      default: null,
+      type: String,
       required: false
     },
-    color: {
-      default: '#000',
+    height: {
+      default: null,
+      type: String,
+      required: false
+    },
+    fill: {
+      default: null,
+      type: String,
+      required: false
+    },
+    stroke: {
+      default: null,
       type: String,
       required: false
     }
@@ -35,11 +45,12 @@ export default {
   data () {
     return {
       iconStyle: {
-        width: `${this.size}rem`,
-        height: `${this.size}rem`
+        ...(this.width && { width: this.width }),
+        ...(this.height && { height: this.height })
       },
       svgStyle: {
-        fill: `${this.color}`
+        ...(this.fill && { fill: this.fill }),
+        ...(this.stroke && { stroke: this.stroke })
       }
     }
   }

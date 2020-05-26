@@ -16,41 +16,41 @@
           class="menubar__button"
           @click="commands.undo"
         >
-          <icon name="undo" />
+          <icon name="undo" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
           @click="commands.redo"
         >
-          <icon name="redo" />
+          <icon name="redo" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.bold() }"
           @click="commands.bold"
         >
-          <icon name="bold" />
+          <icon name="bold" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.italic() }"
           @click="commands.italic"
         >
-          <icon name="italic" />
+          <icon name="italic" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.strike() }"
           @click="commands.strike"
         >
-          <icon name="strike" />
+          <icon name="strike" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.underline() }"
           @click="commands.underline"
         >
-          <icon name="underline" />
+          <icon name="underline" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <!-- <button
           class="menubar__button"
@@ -71,27 +71,27 @@
           :class="{ 'is-active': isActive.customText({ align: 'left' }) }"
           @click="commands.customText({ align: 'left' })"
         >
-          <icon name="left" />
+          <icon name="left" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.customText({ align: 'center' }) }"
           @click="commands.customText({ align: 'center' })"
         >
-          <icon name="center" />
+          <icon name="center" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.customText({ align: 'right' }) }"
           @click="commands.customText({ align: 'right' })"
         >
-          <icon name="right" />
+          <icon name="right" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
           @click="openModal(commands.image)"
         >
-          <icon name="image" />
+          <icon name="image" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
@@ -119,28 +119,28 @@
           :class="{ 'is-active': isActive.bullet_list() }"
           @click="commands.bullet_list"
         >
-          <icon name="ul" />
+          <icon name="ul" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.ordered_list() }"
           @click="commands.ordered_list"
         >
-          <icon name="ol" />
+          <icon name="ol" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.blockquote() }"
           @click="commands.blockquote"
         >
-          <icon name="quote" />
+          <icon name="quote" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.code_block() }"
           @click="commands.code_block"
         >
-          <icon name="code" />
+          <icon name="code" width="0.8rem" height="0.8rem" fill="#000" />
         </button>
       </div>
     </editor-menu-bar>

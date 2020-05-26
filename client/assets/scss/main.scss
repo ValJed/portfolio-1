@@ -8,9 +8,9 @@
   src: url("../fonts/Roboto-Regular.ttf") format("truetype"),
  }
 
-* {
-  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-}
+ * {
+  box-sizing: border-box;
+ }
 
 .container {
   background-color: $primary;
