@@ -67,18 +67,22 @@ export default {
   components: {
     Icon
   },
+  props: {
+    isMobile: {
+      type: Boolean,
+      required: true
+    }
+  },
   data () {
     return {
       currentPage: '',
-      opened: false,
-      isMobile: false
+      opened: false
     }
   },
   mounted () {
     const { path } = this.$router.currentRoute
 
     this.currentPage = path.replace('/', '') || 'home'
-    this.isMobile = window.screen.width < 599
   }
 }
 </script>

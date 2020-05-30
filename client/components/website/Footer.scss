@@ -1,8 +1,11 @@
 .footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: 'Space Mono';
+  height: 5rem;
   color: #fff;
   width: 100%;
-  padding: 1.5rem 0;
   opacity: 0.5;
   text-align: center;
   p {

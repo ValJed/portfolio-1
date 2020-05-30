@@ -1,0 +1,165 @@
+$slideDurationHalf: .5s;
+$slideDuration: 1s;
+$slideOpacity: 0.7;
+
+@keyframes projectEnterActive {
+  0% {
+    opacity: $slideOpacity;
+    height: 40%;
+    left: 0;
+  }
+
+  50% {
+    opacity: 1;
+    height: 40%;
+  }
+
+  100% {
+    left: 15%;
+    height: 50%;
+  }
+}
+
+@keyframes slideEnterNext {
+  0% {
+    transform: translateX(100%);
+  }
+
+  // 50% {
+  //   transform: translateX(100%);
+  // }
+
+  100% {
+    transform: translateX(95%);
+  }
+}
+
+@keyframes slideText {
+  0% {
+    opacity: 0;
+    left: -2rem
+  }
+
+  100% {
+    opacity: 1;
+    left: 0;
+  }
+}
+
+// Common
+.slide {
+  .project {
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    &-description {
+      position: absolute;
+
+      h3 {
+        color: #fff;
+      }
+    }
+  }
+}
+
+@include mobile-only {
+  .slide {
+    height: 35rem;
+    margin: 2rem auto 3rem;
+    max-width: 20rem;
+    .project {
+      height: 80%;
+
+      &-description {
+        top: 90%;
+      }
+    }
+  }
+}
+
+@include tablet-portrait {
+  .slide {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    height: calc(100vh - 10rem);
+    width: 100vw;
+    max-width: 100%;
+    transition: all $slideDurationHalf linear;
+
+    .project {
+      width: 60%;
+      height: 50%;
+      left: 15%;
+
+      transition: all $slideDurationHalf linear;
+
+      &-description {
+        left: 2rem;
+        bottom: -5.5rem;
+        transition: all $slideDurationHalf linear;
+
+        h1 {
+          position: relative;
+          animation: .3s ease .7s 1 normal backwards slideText;
+          margin-bottom: 1.5rem;
+        }
+
+        h3 {
+          position: relative;
+          animation: .3s ease .9s 1 normal backwards slideText;
+        }
+      }
+    }
+
+    &-active {
+      transform: translateX(0);
+      .project {
+        animation: $slideDuration projectEnterActive;
+      }
+    }
+
+    &-next {
+      position: absolute;
+      transform: translateX(95%);
+      top: 0;
+
+      .project {
+        height: 40%;
+        left: 0;
+        opacity: $slideOpacity;
+        &-description {
+          display: none;
+        }
+      }
+    }
+  }
+
+}
+
+
+.slide-leave-active {
+  // when active slide leaves
+  &.slide-active {
+    transform: translateX(-100%);
+    opacity: $slideOpacity;
+    .project {
+      left: 30%;
+      height: 40%;
+      &-description {
+        opacity: 0;
+      }
+    }
+  }
+
+  // When Next slide is becoming current one
+  &.slide-next {
+    transform: translateX(95%);
+  }
+}
+
+.slide-enter-active {
+  &.slide-next {
+    animation: .3s linear $slideDurationHalf 1 normal backwards slideEnterNext;
+  }
+}

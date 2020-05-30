@@ -76,7 +76,6 @@ export default {
   computed: {
     project () {
       if (this.initialProject) {
-        console.log('this.initialProject ===> ', this.initialProject)
         return {
           _id: this.initialProject._id,
           name: this.initialProject.name,
@@ -92,9 +91,7 @@ export default {
       }
     }
   },
-  mounted () {
-    console.log('this.project.img ===> ', this.project.img)
-  },
+
   methods: {
     updateContent (content) {
       this.project.content = content
@@ -102,7 +99,6 @@ export default {
 
     updateMainImg (img) {
       this.project.img = img.name
-      console.log('this.project ===> ', this.project)
     }
   }
 }

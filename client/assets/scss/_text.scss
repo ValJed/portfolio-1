@@ -1,26 +1,57 @@
 h1 {
   font-family: 'Eczar';
-  font-size: 5rem;
-  line-height: 72px;
-  // border: 0.5px solid #fff;
+  color: $secondary;
+
+  @include tablet-portrait {
+    font-size: 5rem;
+    line-height: 4.5rem;
+  }
+
+  @include mobile-only {
+    font-size: 3.875rem;
+    line-height: 4.125rem;
+  };
 }
+
 
 h2 {
   font-family: 'Eczar';
-  font-size: 2.375rem;
-  color: #F195A5;
+  color: $secondary;
+
+  @include tablet-portrait {
+    font-size: 2.375rem;
+  }
+
+  @include mobile-only {
+    font-size: 2.063rem;
+  };
 }
 
 h3 {
   font-family: 'Eczar';
   letter-spacing: 6.5px;
-  font-size: 1.125rem;
-  color: #F195A5;
+  color: $secondary;
+
+  @include tablet-portrait {
+    font-size: 1.125rem;
+  }
+
+  @include mobile-only {
+    font-size: 1rem;
+  };
 }
 
 p {
   font-family: 'Space Mono';
-  font-size: 18px;
-  line-height: 28px;
   color: #fff;
+
+  @include tablet-portrait {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  @include mobile-only {
+    font-size: 1rem;
+    line-height: 1.625rem;
+  };
 }
