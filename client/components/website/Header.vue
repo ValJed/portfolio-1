@@ -21,13 +21,19 @@
     <transition name="menu">
       <ul v-if="!isMobile" class="menu">
         <li :class="{active: currentPage === 'home'}">
-          work
+          <nuxt-link to="/">
+            work
+          </nuxt-link>
         </li>
         <li :class="{active: currentPage === 'about'}">
-          about
+          <nuxt-link to="/about">
+            about
+          </nuxt-link>
         </li>
         <li :class="{active: currentPage === 'contact'}">
-          contact
+          <nuxt-link to="/contact">
+            contact
+          </nuxt-link>
         </li>
       </ul>
       <ul v-else-if="opened" class="menu">

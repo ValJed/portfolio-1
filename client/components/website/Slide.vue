@@ -8,7 +8,8 @@
         'slide-next': isNextSlide
       }"
     >
-      <div
+      <nuxt-link
+        :to="`/projects/${project._id}`"
         class="project"
         :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})` }"
       >
@@ -18,7 +19,7 @@
           </h1>
           <h3>Branding, Art direction</h3>
         </div>
-      </div>
+      </nuxt-link>
     </li>
   </transition>
 </template>
@@ -69,8 +70,8 @@ export default {
       return this.slidesIndex + 1 === this.slidesCount
     }
   },
-  methods: {
-
+  mounted () {
+    console.log('this.project ===> ', this.project)
   }
 }
 </script>
