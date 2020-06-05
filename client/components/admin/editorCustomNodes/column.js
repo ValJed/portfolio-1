@@ -1,7 +1,8 @@
 import { Node } from 'tiptap'
 import {
-  toggleBlockType
-} from 'tiptap-commands'
+// toggleBlockType
+  toggleWrap
+} from 'tiptap-commands/dist/commands.common.js'
 
 export default class BlockquoteNode extends Node {
   // choose a unique name
@@ -22,7 +23,7 @@ export default class BlockquoteNode extends Node {
           default: 1
         }
       },
-      content: 'inline*',
+      content: 'block*',
       group: 'block',
       defining: true,
       draggable: false,
@@ -42,8 +43,6 @@ export default class BlockquoteNode extends Node {
   }
 
   commands ({ type, schema }) {
-    console.log('type ===> ', type)
-    console.log('schema.nodes ===> ', schema)
-    return attrs => toggleBlockType(type, schema.nodes.list_item)
+    return attrs => toggleWrap(type, attrs)
   }
 }

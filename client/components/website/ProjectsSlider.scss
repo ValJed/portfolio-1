@@ -14,7 +14,7 @@
 
 .projects-slider {
   position: relative;
-  overflow: hidden;
+  // overflow-x: hidden;
 
   @include tablet-portrait {
     height: calc(100vh - 10rem);

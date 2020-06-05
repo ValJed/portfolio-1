@@ -82,21 +82,23 @@ $slideOpacity: 0.7;
   .slide {
     position: absolute;
     display: flex;
-    align-items: center;
+    // align-items: center;
     height: calc(100vh - 10rem);
     width: 100vw;
     max-width: 100%;
     transition: all $slideDurationHalf linear;
 
     .project {
-      width: 60%;
-      height: 50%;
+      width: $projectSlideWidth;
+      height: $projectSlideHeight;
+      top: 25%;
       left: 15%;
 
       transition: all $slideDurationHalf linear;
 
       &-description {
         left: 2rem;
+        height: 8.063rem;
         bottom: -5.5rem;
         transition: all $slideDurationHalf linear;
 
@@ -135,9 +137,7 @@ $slideOpacity: 0.7;
       }
     }
   }
-
 }
-
 
 .slide-leave-active {
   // when active slide leaves

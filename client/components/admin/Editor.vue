@@ -91,7 +91,7 @@
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.customColumn({ columnSize: 1 }) }"
-          @click="commands.customColumn({ columnSize: 1 })"
+          @click="commands.customColumn({ columnSize: 1, toto: 'toto' })"
         >
           25%
           <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#000" /> -->

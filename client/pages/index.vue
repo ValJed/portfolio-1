@@ -33,9 +33,37 @@ export default {
       isMobile: false
     }
   },
+  transition (to, from) {
+    console.log('to ===> ', to)
+    if (to.name === 'projects-project') {
+      return {
+        name: 'home-to-project',
+        duration: 1000
+      }
+    }
+    if (to.fullPath === '/about') {
+      return {
+        name: 'home-to-about',
+        duration: 1000
+      }
+    }
+    return {
+      name: 'page',
+      duration: 0
+    }
+  },
   mounted () {
     this.isMobile = window.innerWidth < 599
   }
+  // watch: {
+  //   '$route' (to, from) {
+  //     console.log('to.path ===> ', to.path)
+  //     console.log('from.path ===> ', from.path)
+  //     // const toDepth = to.path.split('/').length
+  //     // const fromDepth = from.path.split('/').length
+  //     // this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+  //   }
+  // },
 }
 </script>
-<style src="./index.scss" scoped lang='scss'></style>
+<style src="./index.scss" lang='scss'></style>

@@ -1,7 +1,7 @@
 import { Node } from 'tiptap'
 import {
   toggleBlockType
-} from 'tiptap-commands'
+} from 'tiptap-commands/dist/commands.common.js'
 
 export default class BlockquoteNode extends Node {
   // choose a unique name
@@ -35,9 +35,8 @@ export default class BlockquoteNode extends Node {
           }
         }),
 
-      toDOM: (mark) => {
-        console.log('this.options.levels ===> ', mark.attrs.level)
-        return [`h${mark.attrs.level}`, {}, 0]
+      toDOM: ({ attrs }) => {
+        return [`h${attrs.level}`, {}, 0]
       }
     }
   }

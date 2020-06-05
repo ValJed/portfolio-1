@@ -1,6 +1,7 @@
 .container {
 
   h1 {
+    transition: all .3s linear;
     max-width: 65rem;
     margin: 4rem auto;
   }

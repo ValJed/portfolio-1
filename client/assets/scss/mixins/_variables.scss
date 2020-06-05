@@ -2,6 +2,8 @@
 $primary: #174240;
 $secondary: #F195A5;
 $white: #fff;
+$projectSlideWidth: 60%;
+$projectSlideHeight: 50%;
 
 @mixin mobile-only {
   @media (max-width: 599px) { @content; }

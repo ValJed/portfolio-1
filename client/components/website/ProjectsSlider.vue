@@ -49,11 +49,11 @@ export default {
       slidesIndex: 0,
       apiConfig,
       projectsList: this.projects,
-      throttleSlide: null
+      throttleSlide: this.throttle(this.nextSlide, 1000)
     }
   },
   mounted () {
-    this.throttleSlide = this.throttle(this.nextSlide, 1000)
+    // this.throttleSlide = this.throttle(this.nextSlide, 1000)
 
     window.addEventListener('keyup', (event) => {
       if (event.keyCode === 39) {

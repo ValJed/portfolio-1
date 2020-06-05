@@ -69,9 +69,6 @@ export default {
     isLastSlide () {
       return this.slidesIndex + 1 === this.slidesCount
     }
-  },
-  mounted () {
-    console.log('this.project ===> ', this.project)
   }
 }
 </script>
