@@ -27,9 +27,7 @@ module.exports = ({
   // Creating a new project
   router.post('/projects', async (req, res) => {
     try {
-      const { name, content, img } = req.body
-
-      const project = await projectService.createProject(name, content, img)
+      const project = await projectService.createProject(req.body)
 
       return res.status(201).send(project)
     } catch (err) {
@@ -41,10 +39,8 @@ module.exports = ({
   // Updating project
   router.put('/projects', async (req, res) => {
     try {
-      const { _id, name, content, img } = req.body
-
       const updatedProject = await projectService
-        .updateProject(_id, name, content, img)
+        .updateProject(req.body)
 
       res.status(200).send(updatedProject)
     } catch (err) {
@@ -71,6 +67,7 @@ module.exports = ({
     }
   })
 
+  // Getting images references
   router.get('/images', async (req, res) => {
     try {
       const images = await projectService.getImages()
@@ -105,6 +102,28 @@ module.exports = ({
       const { _id, name } = req.body
 
       await projectService.deleteImage(_id, name)
+
+      res.status(200).send()
+    } catch (err) {
+      log.error(err)
+      res.status(500).send(err.message)
+    }
+  })
+
+  router.get('/about', async (req, res, next) => {
+    try {
+      const aboutProject = await projectService.getAboutProject()
+
+      res.status(200).send({ about: aboutProject })
+    } catch (err) {
+      log.error(err)
+      res.status(500).send(err.message)
+    }
+  })
+
+  router.put('/about', async (req, res, next) => {
+    try {
+      await projectService.updateOrCreateAbout(req.body)
 
       res.status(200).send()
     } catch (err) {

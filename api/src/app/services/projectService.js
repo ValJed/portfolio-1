@@ -1,4 +1,5 @@
 const ProjectEntity = require('../../domain/Project')
+const AboutEntity = require('../../domain/About')
 const fs = require('fs')
 const path = require('path')
 
@@ -20,8 +21,8 @@ module.exports = ({
     throw new Error('Error when requesting projects.')
   }
 
-  const createProject = async (name, content, img) => {
-    const project = ProjectEntity(name, content, img)
+  const createProject = async (projectData) => {
+    const project = ProjectEntity(projectData)
 
     const createdProject = await projectRepo.createProject(project)
 
@@ -35,14 +36,10 @@ module.exports = ({
     }
   }
 
-  const updateProject = async (id, name, content, img) => {
-    const project = {
-      name,
-      content,
-      img
-    }
+  const updateProject = async (projectData) => {
+    const project = ProjectEntity(projectData)
 
-    const updatedProject = await projectRepo.updateProject(id, project)
+    const updatedProject = await projectRepo.updateProject(projectData._id, project)
 
     if (updatedProject.ok && updatedProject.value) {
       return updatedProject.value
@@ -113,6 +110,22 @@ module.exports = ({
     await unlinkImg(pathToFile, name)
   }
 
+  const getAboutProject = async () => {
+    return projectRepo.getAboutProject()
+  }
+
+  const updateOrCreateAbout = async (aboutData) => {
+    const about = AboutEntity(aboutData)
+
+    // Getting an _id from the front means the about project already exist
+    if (aboutData._id) {
+      await projectRepo.updateProject(aboutData._id, about)
+    } else {
+      const created = await projectRepo.createProject(about)
+      console.log('created ===> ', require('util').inspect(created, { colors: true, depth: 2 }))
+    }
+  }
+
   return {
     getProjects,
     createProject,
@@ -120,6 +133,8 @@ module.exports = ({
     deleteProject,
     getImages,
     createImage,
-    deleteImage
+    deleteImage,
+    getAboutProject,
+    updateOrCreateAbout
   }
 }

@@ -15,7 +15,11 @@ const repository = (db) => {
     updateProject: (id, project) => ProjectsDb.findOneAndUpdate(
       { _id: ObjectID(id) },
       { $set: project },
-      { returnOriginal: false })
+      { returnOriginal: false }),
+
+    getAboutProject: () => ProjectsDb.findOne({
+      isAbout: true
+    })
   }
 }
 
