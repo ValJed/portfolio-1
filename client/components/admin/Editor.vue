@@ -1,6 +1,7 @@
 <template>
   <div class="editor">
     <image-modal
+      v-if="addImage"
       ref="imgModal"
       :images="images"
       :add-image="addImage"
@@ -93,7 +94,7 @@
           :class="{ 'is-active': isActive.customColumn({ columnSize: 1 }) }"
           @click="commands.customColumn({ columnSize: 1, toto: 'toto' })"
         >
-          25%
+          I
           <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#000" /> -->
         </button>
 
@@ -102,7 +103,7 @@
           :class="{ 'is-active': isActive.customColumn({ columnSize: 2 }) }"
           @click="commands.customColumn({ columnSize: 2 })"
         >
-          50%
+          II
           <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#000" /> -->
         </button>
         <button
@@ -110,11 +111,12 @@
           :class="{ 'is-active': isActive.customColumn({ columnSize: 3 }) }"
           @click="commands.customColumn({ columnSize: 3 })"
         >
-          75%
+          III
           <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#000" /> -->
         </button>
 
         <button
+          v-if="images"
           class="menubar__button"
           @click="openModal(commands.image)"
         >
@@ -122,22 +124,22 @@
         </button>
         <button
           class="menubar__button"
-          :class="{ 'is-active': isActive.customHeading({ level: 1 }) }"
-          @click="commands.customHeading({ level: 1 })"
+          :class="{ 'is-active': isActive.heading({ level: 1 }) }"
+          @click="commands.heading({ level: 1 })"
         >
           H1
         </button>
         <button
           class="menubar__button"
-          :class="{ 'is-active': isActive.customHeading({ level: 2 }) }"
-          @click="commands.customHeading({ level: 2 })"
+          :class="{ 'is-active': isActive.heading({ level: 2 }) }"
+          @click="commands.heading({ level: 2 })"
         >
           H2
         </button>
         <button
           class="menubar__button"
-          :class="{ 'is-active': isActive.customHeading({ level: 3 }) }"
-          @click="commands.customHeading({ level: 3 })"
+          :class="{ 'is-active': isActive.heading({ level: 3 }) }"
+          @click="commands.heading({ level: 3 })"
         >
           H3
         </button>
@@ -188,7 +190,7 @@ import {
   Blockquote,
   CodeBlock,
   HardBreak,
-  // Heading,
+  Heading,
   OrderedList,
   BulletList,
   Image,
@@ -207,7 +209,7 @@ import ImageModal from '../admin/ImageModal'
 import Icon from '../common/Icon'
 import CustomText from './editorCustomNodes/text'
 import CustomColumn from './editorCustomNodes/column'
-import CustomHeading from './editorCustomNodes/heading'
+// import CustomHeading from './editorCustomNodes/heading'
 
 export default {
   name: 'EditorBlock',
@@ -228,19 +230,23 @@ export default {
     },
     images: {
       type: Array,
-      required: true
+      required: false,
+      default: null
     },
     addImage: {
       type: Function,
-      required: true
+      required: false,
+      default: null
     },
     deleteImg: {
       type: Function,
-      required: true
+      required: false,
+      default: null
     },
     updateMainImg: {
       type: Function,
-      required: true
+      required: false,
+      default: null
     }
   },
   data () {
@@ -254,8 +260,8 @@ export default {
           new HardBreak(),
           new CustomText({ alignment: ['left', 'center', 'right'] }),
           new CustomColumn({ columnSizes: [1, 2, 3] }),
-          new CustomHeading({ levels: [1, 2, 3] }),
-          // new Heading({ levels: [1, 2, 3] }),
+          // new CustomHeading({ levels: [1, 2, 3] }),
+          new Heading({ levels: [1, 2, 3] }),
           new Image(),
           new ListItem(),
           new OrderedList(),
@@ -269,7 +275,7 @@ export default {
           new Underline(),
           new History()
         ],
-        content: this.content,
+        content: this.content || 'Voyons voir...',
         onUpdate: ({ getHTML }) => {
           const content = getHTML()
 

@@ -34,7 +34,6 @@ export default {
     }
   },
   transition (to, from) {
-    console.log('to ===> ', to)
     if (to.name === 'projects-project') {
       return {
         name: 'home-to-project',

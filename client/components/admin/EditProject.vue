@@ -15,6 +15,7 @@
           Edit project
         </h3>
         <input v-model="project.name" type="text">
+        <input v-model="project.description" type="text">
       </div>
       <div
         v-if="project.img"
@@ -70,7 +71,14 @@ export default {
   },
   data () {
     return {
-      apiConfig
+      apiConfig,
+      // mainImg: null
+      projectData: {
+        name: '',
+        description: '',
+        img: '',
+        content: ''
+      }
     }
   },
   computed: {
@@ -85,13 +93,20 @@ export default {
       }
 
       return {
-        name: '',
-        content: '',
-        img: ''
+        ...this.projectData._id && { _id: this.projectData._id },
+        name: this.projectData.name,
+        description: this.projectData.description,
+        img: this.projectData.img,
+        content: this.projectData.content
       }
     }
   },
 
+  mounted () {
+    if (this.initialProject) {
+      this.projectData = this.initialProject
+    }
+  },
   methods: {
     updateContent (content) {
       this.project.content = content
@@ -99,6 +114,7 @@ export default {
 
     updateMainImg (img) {
       this.project.img = img.name
+      this.mainImg = img.name
     }
   }
 }

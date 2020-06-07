@@ -6,8 +6,11 @@
     </div>
     <div class="projects">
       <div class="projects-list">
-        <button @click="selectedProject = null">
+        <button @click="selectedProject = null; aboutEditing = false">
           Create new project
+        </button>
+        <button @click="aboutEditing = true">
+          Edit about page
         </button>
         <project-list
           :projects="projects"
@@ -17,7 +20,14 @@
       </div>
       <div class="projects-edition">
         <client-only>
+          <edit-about
+            v-if="aboutEditing"
+            :about-page="aboutPage"
+            :update-about-content="updateAboutContent"
+            :update-about-project="updateAboutProject"
+          />
           <edit-project
+            v-else
             :initial-project="selectedProject"
             :create-project="createProject"
             :update-project="updateProject"
@@ -34,9 +44,10 @@
 
 <script>
 // import Logo from '~/components/Logo.vue'
-import EditProject from '../components/admin/EditProject'
 import { apiConfig } from '../utils/config'
+import EditProject from '@/components/admin/EditProject'
 import ProjectList from '@/components/admin/ProjectList'
+import EditAbout from '@/components/admin/EditAbout'
 
 import { get, post, put, del } from '@/utils/network'
 
@@ -45,21 +56,32 @@ import { bus } from '@/plugins/bus'
 export default {
   components: {
     EditProject,
-    ProjectList
+    ProjectList,
+    EditAbout
   },
   async asyncData (context) {
     const { status: projectStatus, data: { projects } } = await get({ route: 'projects', sendToken: false })
     const { status: imageStatus, data: { images } } = await get({ route: 'images', sendToken: false })
 
+    const aboutPage = projects.find(project => project.isAbout)
+
+    const onlyProjects = projects.filter(project => !project.isAbout)
+
     if (projectStatus === 200 && imageStatus === 200) {
-      return { projects, images }
+      return {
+        projects: onlyProjects,
+        images,
+        aboutPage
+      }
     }
   },
 
   data () {
     return {
+      aboutEditing: false,
       selectedProject: null,
       projects: [],
+      aboutPage: null,
       images: []
     }
   },
@@ -104,6 +126,23 @@ export default {
         action: this.deleteProject,
         params: id
       })
+    },
+
+    updateAboutContent (content) {
+      this.aboutPage.content = content
+    },
+
+    async updateAboutProject (about) {
+      const { status, data } = await put('about', about)
+
+      console.log('data ===> ', data)
+
+      if (status === 200) {
+        this.$notify({
+          title: 'About page updated',
+          type: 'success'
+        })
+      }
     },
 
     async deleteProject (id) {
@@ -154,6 +193,7 @@ export default {
     },
 
     selectProject (project) {
+      this.aboutEditing = false
       this.selectedProject = project
     }
   }
