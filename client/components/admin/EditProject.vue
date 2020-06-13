@@ -24,6 +24,7 @@
       />
     </div>
     <editor
+      :id="project._id"
       :content="project.content"
       :update-content="updateContent"
       :images="images"
@@ -35,6 +36,7 @@
 </template>
 
 <script>
+// check project change with id
 import { apiConfig } from '../../utils/config'
 import Editor from './Editor'
 
@@ -73,7 +75,11 @@ export default {
     return {
       apiConfig,
       // mainImg: null
-      projectData: {
+      // name: '',
+      // description: '',
+      // img: '',
+      // content: ''
+      project: {
         name: '',
         description: '',
         img: '',
@@ -81,30 +87,64 @@ export default {
       }
     }
   },
-  computed: {
-    project () {
-      if (this.initialProject) {
-        return {
-          _id: this.initialProject._id,
-          name: this.initialProject.name,
-          img: this.initialProject.img,
-          content: this.initialProject.content
-        }
-      }
+  // computed: {
+  //   getContent () {
+  //     return this.content
+  //   }
+  // },
+  // computed: {
+  //   project () {
+  //     if (this.initialProject) {
+  //       return {
+  //         _id: this.initialProject._id,
+  //         name: this.initialProject.name,
+  //         img: this.initialProject.img,
+  //         content: this.initialProject.content
+  //       }
+  //     }
 
-      return {
-        ...this.projectData._id && { _id: this.projectData._id },
-        name: this.projectData.name,
-        description: this.projectData.description,
-        img: this.projectData.img,
-        content: this.projectData.content
+  //     return {
+  //       ...this.projectData._id && { _id: this.projectData._id },
+  //       name: this.projectData.name,
+  //       description: this.projectData.description,
+  //       img: this.projectData.img,
+  //       content: this.projectData.content
+  //     }
+  //   }
+  // },
+  watch: {
+    initialProject (newVal, oldVal) {
+      // const { _id, name, description, content, img } = newVal
+
+      // this._id = _id
+      // this.name = name
+      // this.description = description
+      // this.content = content
+      // this.img = img
+
+      if (newVal) {
+        this.project = newVal
+      } else {
+        this.project = {
+          name: '',
+          description: '',
+          img: '',
+          content: ''
+        }
       }
     }
   },
 
   mounted () {
     if (this.initialProject) {
-      this.projectData = this.initialProject
+      // const { _id, name, description, content, img } = this.initialProject
+      // this._id = _id
+      // this.name = name
+      // this.description = description
+      // this.content = content
+      // this.img = img
+
+      this.project = this.initialProject
     }
   },
   methods: {
@@ -114,7 +154,6 @@ export default {
 
     updateMainImg (img) {
       this.project.img = img.name
-      this.mainImg = img.name
     }
   }
 }

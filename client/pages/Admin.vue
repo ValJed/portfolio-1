@@ -1,10 +1,10 @@
 <template>
   <div class="container">
+    <Header />
     <modal />
-    <div class="header">
-      <h1>admin</h1>
-    </div>
+
     <div class="projects">
+
       <div class="projects-list">
         <button @click="selectedProject = null; aboutEditing = false">
           Create new project
@@ -22,8 +22,7 @@
         <client-only>
           <edit-about
             v-if="aboutEditing"
-            :about-page="aboutPage"
-            :update-about-content="updateAboutContent"
+            :about-content="aboutPage.content"
             :update-about-project="updateAboutProject"
           />
           <edit-project
@@ -48,6 +47,7 @@ import { apiConfig } from '../utils/config'
 import EditProject from '@/components/admin/EditProject'
 import ProjectList from '@/components/admin/ProjectList'
 import EditAbout from '@/components/admin/EditAbout'
+import Header from '@/components/website/Header'
 
 import { get, post, put, del } from '@/utils/network'
 
@@ -57,7 +57,8 @@ export default {
   components: {
     EditProject,
     ProjectList,
-    EditAbout
+    EditAbout,
+    Header
   },
   async asyncData (context) {
     const { status: projectStatus, data: { projects } } = await get({ route: 'projects', sendToken: false })
@@ -71,7 +72,7 @@ export default {
       return {
         projects: onlyProjects,
         images,
-        aboutPage
+        ...aboutPage && { aboutPage }
       }
     }
   },
@@ -80,8 +81,17 @@ export default {
     return {
       aboutEditing: false,
       selectedProject: null,
+      // selectedProject: {
+      //   name: '',
+      //   description: '',
+      //   content: '',
+      //   img: ''
+      // },
       projects: [],
-      aboutPage: null,
+      aboutPage: {
+        _id: '',
+        content: ''
+      },
       images: []
     }
   },
@@ -114,6 +124,8 @@ export default {
       this.projects = this.projects
         .map(proj => proj._id === project._id ? data : proj)
 
+      // this.selectedProject = data
+
       this.$notify({
         title: 'Project updated',
         type: 'success'
@@ -128,19 +140,29 @@ export default {
       })
     },
 
-    updateAboutContent (content) {
-      this.aboutPage.content = content
-    },
+    // updateAboutContent (content) {
+    //   this.aboutPage.content = content
+    // },
 
-    async updateAboutProject (about) {
-      const { status, data } = await put('about', about)
+    async updateAboutProject (content) {
+      console.log('content ===> ', content)
+      const newAbout = {
+        ...this.aboutPage,
+        content
+      }
 
-      console.log('data ===> ', data)
+      const { status, data } = await put('about', newAbout)
 
       if (status === 200) {
+        this.aboutPage = data
         this.$notify({
           title: 'About page updated',
           type: 'success'
+        })
+      } else {
+        this.$notify({
+          title: 'Error when updating about page',
+          type: 'error'
         })
       }
     },

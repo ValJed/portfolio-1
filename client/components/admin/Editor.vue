@@ -92,7 +92,7 @@
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.customColumn({ columnSize: 1 }) }"
-          @click="commands.customColumn({ columnSize: 1, toto: 'toto' })"
+          @click="commands.customColumn({ columnSize: 1 })"
         >
           I
           <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#000" /> -->
@@ -175,7 +175,6 @@
     </editor-menu-bar>
     <editor-content
       ref="editor"
-      v-model="content"
       :style="{ height: `${editorHeight}px` }"
       class="editor-content project-content"
       :editor="editor"
@@ -220,6 +219,11 @@ export default {
     ImageModal
   },
   props: {
+    id: {
+      type: String,
+      required: false,
+      default: () => null
+    },
     content: {
       type: String,
       required: true
@@ -275,8 +279,10 @@ export default {
           new Underline(),
           new History()
         ],
-        content: this.content || 'Voyons voir...',
-        onUpdate: ({ getHTML }) => {
+        onInit: () => {
+        },
+        content: this.content,
+        onUpdate: ({ getHTML, getJSON }) => {
           const content = getHTML()
 
           this.updateContent(content)
@@ -285,10 +291,11 @@ export default {
     }
   },
   watch: {
-    content (newVal, oldVal) {
-      this.editor.setContent(newVal)
+    id (newVal, oldVal) {
+      this.editor.setContent(this.content)
     }
   },
+
   mounted () {
     // Computing editor height
     const distance = this.$refs.editor.$el.getBoundingClientRect().top

@@ -22,8 +22,13 @@ export default {
     const { status: projectStatus, data: { projects } } = await get({ route: 'projects', sendToken: false })
     const { status: imageStatus, data: { images } } = await get({ route: 'images', sendToken: false })
 
+    const onlyProjects = projects.filter(project => !project.isAbout)
+
     if (projectStatus === 200 && imageStatus === 200) {
-      return { projects, images }
+      return {
+        projects: onlyProjects,
+        images
+      }
     }
   },
   data () {
@@ -56,8 +61,6 @@ export default {
   }
   // watch: {
   //   '$route' (to, from) {
-  //     console.log('to.path ===> ', to.path)
-  //     console.log('from.path ===> ', from.path)
   //     // const toDepth = to.path.split('/').length
   //     // const fromDepth = from.path.split('/').length
   //     // this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'

@@ -30,4 +30,9 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+  &-header {
+    :first-child {
+      max-width: 15rem;
+    }
+  }
 }

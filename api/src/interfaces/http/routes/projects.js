@@ -123,9 +123,9 @@ module.exports = ({
 
   router.put('/about', async (req, res, next) => {
     try {
-      await projectService.updateOrCreateAbout(req.body)
+      const aboutProject = await projectService.updateOrCreateAbout(req.body)
 
-      res.status(200).send()
+      res.status(200).send(aboutProject)
     } catch (err) {
       log.error(err)
       res.status(500).send(err.message)

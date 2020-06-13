@@ -2,12 +2,12 @@
   <div class="edit-about">
     <div class="edit-about-header">
       <h3>Edit about page</h3>
-      <button @click="updateAboutProject(about)">
+      <button @click="updateAboutProject(content)">
         Update
       </button>
     </div>
     <editor
-      :content="about.content"
+      :content="content"
       :update-content="updateContent"
     />
   </div>
@@ -21,12 +21,8 @@ export default {
     Editor
   },
   props: {
-    aboutPage: {
-      type: Object,
-      required: true
-    },
-    updateAboutContent: {
-      type: Function,
+    aboutContent: {
+      type: String,
       required: true
     },
     updateAboutProject: {
@@ -36,33 +32,12 @@ export default {
   },
   data () {
     return {
-      aboutData: {
-        _id: '',
-        content: '',
-        isAbout: true
-      }
-    }
-  },
-  computed: {
-    about () {
-      if (this.aboutPage) {
-        return {
-          _id: this.aboutPage._id,
-          content: this.aboutPage.content,
-          isAbout: this.aboutPage.isAbout
-        }
-      }
-
-      return {
-        _id: this.aboutData._id,
-        content: this.aboutData.content,
-        isAbout: this.aboutData.isAbout
-      }
+      content: this.aboutContent
     }
   },
   methods: {
     updateContent (content) {
-      this.aboutData.content = content
+      this.content = content
     }
   }
 }

@@ -119,10 +119,16 @@ module.exports = ({
 
     // Getting an _id from the front means the about project already exist
     if (aboutData._id) {
-      await projectRepo.updateProject(aboutData._id, about)
+      const updatedProject = await projectRepo.updateProject(aboutData._id, about)
+
+      return updatedProject.value
     } else {
-      const created = await projectRepo.createProject(about)
-      console.log('created ===> ', require('util').inspect(created, { colors: true, depth: 2 }))
+      const { insertedId } = await projectRepo.createProject(about)
+
+      return {
+        _id: insertedId,
+        ...about
+      }
     }
   }
 

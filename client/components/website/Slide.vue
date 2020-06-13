@@ -9,6 +9,7 @@
       }"
     >
       <nuxt-link
+        v-if="isCurrentSlide"
         :to="`/projects/${project._id}`"
         class="project"
         :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})` }"
@@ -17,9 +18,21 @@
           <h1>
             {{ project.name }}
           </h1>
-          <h3>Branding, Art direction</h3>
+          <h3>{{ project.description }}</h3>
         </div>
       </nuxt-link>
+         <div
+        v-else
+        class="project"
+        :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})` }"
+      >
+        <div class="project-description">
+          <h1>
+            {{ project.name }}
+          </h1>
+          <h3>{{ project.description }}</h3>
+        </div>
+      </div>
     </li>
   </transition>
 </template>

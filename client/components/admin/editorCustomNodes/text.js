@@ -19,7 +19,7 @@ export default class BlockquoteNode extends Node {
     return {
       attrs: {
         align: {
-          default: 'left'
+          // default: 'left'
         }
       },
       content: 'inline*',
@@ -31,15 +31,26 @@ export default class BlockquoteNode extends Node {
       parseDOM: this.options.alignment
         .map((align) => {
           return {
-            tag: 'p',
-            attrs: { align }
+            tag: 'div',
+            getAttrs (dom) {
+              const classAttr = dom.getAttribute('class')
+
+              if (classAttr !== align) {
+                return false
+              }
+
+              return {
+                align: classAttr,
+                class: classAttr
+              }
+            }
           }
         }),
       // this is how this node will be rendered
       // in this case a p tag with a class called `awesome-blockquote` will be rendered
       // the '0' stands for its text content inside
-      toDOM: (node) => {
-        return ['p', { class: node.attrs.align }, 0]
+      toDOM: ({ attrs }) => {
+        return ['div', { class: attrs.align }, 0]
       }
     }
   }
@@ -48,7 +59,7 @@ export default class BlockquoteNode extends Node {
   // `type` is the prosemirror schema object for this blockquote
   // `schema` is a collection of all registered nodes and marks
   commands ({ type, schema }) {
-    return attrs => toggleBlockType(type, schema.nodes.paragraph, attrs)
+    return attrs => toggleBlockType(type, schema.nodes.customText, attrs)
   }
 
   // here you can register some shortcuts

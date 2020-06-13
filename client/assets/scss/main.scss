@@ -16,6 +16,10 @@
    text-decoration: none;
  }
 
+.project-content {
+  @include project-content;
+}
+
 .container {
   background-color: $primary;
   margin: 0 auto;
