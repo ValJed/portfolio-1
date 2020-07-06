@@ -8,25 +8,7 @@ module.exports = ({
 }) => {
   const router = new express.Router()
 
-  // Login user
-  router.post('/login', async (req, res) => {
-    try {
-      const data = req.body
-
-      const response = await userService.login(data)
-
-      if (response.success) {
-        res.status(200).send(response)
-      } else {
-        res.status(400).send(response)
-      }
-    } catch (err) {
-      log.error(err)
-      res.status(500).send(err.message)
-    }
-  })
-
-  const verifyToken = async (req, res, next) => {
+  const verifyToken = async (req, res, next, userService) => {
     const { authorization } = req.headers
 
     if (!authorization || !authorization.includes('Bearer ')) {
@@ -45,6 +27,24 @@ module.exports = ({
   }
 
   // Login user
+  router.post('/login', async (req, res) => {
+    try {
+      const data = req.body
+
+      const response = await userService.login(data)
+
+      if (response.success) {
+        res.status(200).send(response)
+      } else {
+        res.status(400).send(response)
+      }
+    } catch (err) {
+      log.error(err)
+      res.status(500).send(err.message)
+    }
+  })
+
+  // Login user
   router.get('/verify', verifyToken, async (req, res, next) => {
     try {
       return res.status(200).send()
@@ -55,7 +55,7 @@ module.exports = ({
   })
 
   // Creating new user
-  router.post('/users', async (req, res, next) => {
+  router.post('/users', verifyToken, async (req, res, next) => {
     try {
       const data = req.body
 

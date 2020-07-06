@@ -2,13 +2,32 @@ const express = require('express')
 
 module.exports = ({
   services: {
-    project: projectService
+    project: projectService,
+    user: userService
   },
   upload,
   config,
   log
 }) => {
   const router = new express.Router()
+
+  const verifyToken = async (req, res, next) => {
+    const { authorization } = req.headers
+
+    if (!authorization || !authorization.includes('Bearer ')) {
+      return res.status(401).send()
+    }
+
+    const token = authorization.replace('Bearer ', '')
+
+    const valid = await userService.verify(token)
+
+    if (!valid) {
+      return res.status(401).send()
+    }
+
+    next()
+  }
 
   // Getting all user projects
   router.get('/projects', async (req, res, next) => {
@@ -41,11 +60,11 @@ module.exports = ({
   })
 
   // Creating a new project
-  router.post('/projects', async (req, res) => {
+  router.post('/projects', verifyToken, async (req, res) => {
     try {
       const project = await projectService.createProject(req.body)
 
-      return res.status(201).send({ project })
+      return res.status(201).send(project)
     } catch (err) {
       log.error(err)
       res.status(500).send(err.message)
@@ -53,7 +72,7 @@ module.exports = ({
   })
 
   // Updating project
-  router.put('/projects', async (req, res) => {
+  router.put('/projects', verifyToken, async (req, res) => {
     try {
       const updatedProject = await projectService
         .updateProject(req.body)
@@ -66,7 +85,7 @@ module.exports = ({
   })
 
   // Deleting project
-  router.delete('/projects', async (req, res) => {
+  router.delete('/projects', verifyToken, async (req, res) => {
     try {
       const { id } = req.body
 
@@ -99,7 +118,7 @@ module.exports = ({
   })
 
   // Writing and inserting image
-  router.post('/images', upload.single('image'), async (req, res, next) => {
+  router.post('/images', verifyToken, upload.single('image'), async (req, res, next) => {
     try {
       const { filename } = req.file
 
@@ -113,7 +132,7 @@ module.exports = ({
   })
 
   // Writing and inserting image
-  router.delete('/images', async (req, res, next) => {
+  router.delete('/images', verifyToken, async (req, res, next) => {
     try {
       const { _id, name } = req.body
 
@@ -137,7 +156,7 @@ module.exports = ({
     }
   })
 
-  router.put('/about', async (req, res, next) => {
+  router.put('/about', verifyToken, async (req, res, next) => {
     try {
       const aboutProject = await projectService.updateOrCreateAbout(req.body)
 

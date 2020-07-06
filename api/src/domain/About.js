@@ -1,9 +1,9 @@
 // const { ObjectID } = require('mongodb')
 
-module.exports = ({ content, isAbout }) => {
+module.exports = ({ content }) => {
   const project = {
     content,
-    isAbout,
+    isAbout: true,
     UpdatedAt: new Date()
   }
 
