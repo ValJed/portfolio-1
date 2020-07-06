@@ -11,14 +11,14 @@ module.exports = ({
   jwt,
   log
 }) => {
-  const getProjects = async () => {
-    const projects = await projectRepo.findAll()
+  const getProjects = async (id) => {
+    return id ? projectRepo.findById(id) : projectRepo.findAll()
 
-    if (projects && Array.isArray(projects)) {
-      return projects
-    }
+    // if (projects && Array.isArray(projects)) {
+    //   return projects
+    // }
 
-    throw new Error('Error when requesting projects.')
+    // throw new Error('Error when requesting projects.')
   }
 
   const createProject = async (projectData) => {

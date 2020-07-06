@@ -93,7 +93,9 @@ module.exports = ({
   const verify = (token) => {
     const isTokenValid = jwt.verify(token)
 
-    return !!isTokenValid
+    return {
+      success: !!isTokenValid
+    }
   }
 
   const remove = () => {

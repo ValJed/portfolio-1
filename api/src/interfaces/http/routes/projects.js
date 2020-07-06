@@ -24,12 +24,28 @@ module.exports = ({
     }
   })
 
+  // Getting one user projects
+  router.get('/projects/:id', async (req, res, next) => {
+    try {
+      const { id } = req.params
+
+      const project = await projectService.getProjects(id)
+
+      if (project) {
+        return res.status(200).send({ project })
+      }
+    } catch (err) {
+      log.error(err)
+      res.status(500).send(err.message)
+    }
+  })
+
   // Creating a new project
   router.post('/projects', async (req, res) => {
     try {
       const project = await projectService.createProject(req.body)
 
-      return res.status(201).send(project)
+      return res.status(201).send({ project })
     } catch (err) {
       log.error(err)
       res.status(500).send(err.message)

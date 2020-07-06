@@ -6,7 +6,7 @@ const repository = (db) => {
   return {
     findAll: () => ProjectsDb.find().toArray(),
 
-    findById: (_id) => ProjectsDb.findOne({ _id }),
+    findById: (id) => ProjectsDb.findOne({ _id: ObjectID(id) }),
 
     createProject: (project) => ProjectsDb.insertOne(project),
 
