@@ -14,7 +14,6 @@
 
 .projects-slider {
   position: relative;
-  // overflow-x: hidden;
 
   @include tablet-portrait {
     height: calc(100vh - 10rem);
@@ -26,13 +25,15 @@
         right: 5rem;
         cursor: pointer;
         z-index: 10;
-        animation: 1.5s linear 0s infinite normal forwards arrowHover ;
+        animation: 1.5s linear 0s infinite normal forwards arrowHover;
       }
     }
   }
 
-  @include mobile-only {
-    margin: 0 1.875rem;
+  > ul {
+    @include mobile-only {
+      margin: 6rem 1.875rem 0;
+    }
   }
 
 }

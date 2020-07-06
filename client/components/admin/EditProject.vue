@@ -74,11 +74,6 @@ export default {
   data () {
     return {
       apiConfig,
-      // mainImg: null
-      // name: '',
-      // description: '',
-      // img: '',
-      // content: ''
       project: {
         name: '',
         description: '',
@@ -87,41 +82,8 @@ export default {
       }
     }
   },
-  // computed: {
-  //   getContent () {
-  //     return this.content
-  //   }
-  // },
-  // computed: {
-  //   project () {
-  //     if (this.initialProject) {
-  //       return {
-  //         _id: this.initialProject._id,
-  //         name: this.initialProject.name,
-  //         img: this.initialProject.img,
-  //         content: this.initialProject.content
-  //       }
-  //     }
-
-  //     return {
-  //       ...this.projectData._id && { _id: this.projectData._id },
-  //       name: this.projectData.name,
-  //       description: this.projectData.description,
-  //       img: this.projectData.img,
-  //       content: this.projectData.content
-  //     }
-  //   }
-  // },
   watch: {
     initialProject (newVal, oldVal) {
-      // const { _id, name, description, content, img } = newVal
-
-      // this._id = _id
-      // this.name = name
-      // this.description = description
-      // this.content = content
-      // this.img = img
-
       if (newVal) {
         this.project = newVal
       } else {
@@ -137,13 +99,6 @@ export default {
 
   mounted () {
     if (this.initialProject) {
-      // const { _id, name, description, content, img } = this.initialProject
-      // this._id = _id
-      // this.name = name
-      // this.description = description
-      // this.content = content
-      // this.img = img
-
       this.project = this.initialProject
     }
   },

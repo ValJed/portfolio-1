@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="page-content">
     <form>
       <label>Username :</label>
       <input v-model="form.username" type="text">
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { post } from '../utils/network'
+import network from '../utils/network'
 
 export default {
   data () {
@@ -26,7 +26,11 @@ export default {
   },
   methods: {
     async logUser (form) {
-      const { status, data } = await post('login', form)
+      const { status, data } = await network({
+        method: 'post',
+        route: 'login',
+        data: form
+      })
 
       if (status === 200) {
         const date = new Date()

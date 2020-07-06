@@ -2,16 +2,24 @@
   position: relative;
   padding-bottom: 5rem;
 
-  h1 {
-    max-width: 63rem;
-    margin: 2rem auto 2.688rem;
+  .page-content {
+    min-height: calc(100vh - 10rem);
+    padding-top: 2rem;
 
+    h1 {
+      max-width: 65rem;
+      padding: 0 1rem;
+      margin: 0 auto 2.688rem;
+    }
+
+    .about-content {
+      max-width: 65rem;
+      margin: 0 auto;
+    }
   }
-  .about-content {
-    max-width: 65rem;
-    margin: 0 auto;
-  }
+
   .footer {
+    background-color: purple;
     position: absolute;
     left: 0;
     bottom: 0;

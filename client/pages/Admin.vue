@@ -36,20 +36,21 @@
         </client-only>
       </div>
     </div>
-    <NotFound v-else />
+    <NotFound v-else-if="authorized === false" />
+    <div v-else />
 
     <notifications position="bottom left" classes="notifications" />
   </div>
 </template>
 
 <script>
-import { apiConfig } from '../utils/config'
+import { apiConfig } from '@/utils/config'
 import EditProject from '@/components/admin/EditProject'
 import ProjectList from '@/components/admin/ProjectList'
 import EditAbout from '@/components/admin/EditAbout'
 import NotFound from '@/pages/NotFound'
 
-import { get, post, put, del } from '@/utils/network'
+import network from '@/utils/network'
 
 import { bus } from '@/plugins/bus'
 
@@ -61,8 +62,8 @@ export default {
     NotFound
   },
   async asyncData (context) {
-    const { status: projectStatus, data: { projects } } = await get({ route: 'projects', sendToken: false })
-    const { status: imageStatus, data: { images } } = await get({ route: 'images', sendToken: false })
+    const { status: projectStatus, data: { projects } } = await network({ route: 'projects', sendToken: false })
+    const { status: imageStatus, data: { images } } = await network({ route: 'images', sendToken: false })
 
     const aboutPage = projects.find(project => project.isAbout)
 
@@ -80,7 +81,7 @@ export default {
   data () {
     return {
       aboutEditing: false,
-      authorized: false,
+      authorized: null,
       selectedProject: null,
       isMobile: false,
       projects: [],
@@ -95,16 +96,18 @@ export default {
   async mounted () {
     this.isMobile = window.innerWidth < 599
 
-    const { status } = await get({ route: 'verify' })
+    const { status } = await network({ route: 'verify' })
 
-    if (status === 200) {
-      this.authorized = true
-    }
+    this.authorized = status === 200
   },
 
   methods: {
     async createProject (project) {
-      const { status, data } = await post('projects', project)
+      const { status, data } = await network({
+        method: 'post',
+        route: 'projects',
+        data: project
+      })
 
       if (status === 201) {
         this.projects = [
@@ -113,17 +116,43 @@ export default {
         ]
 
         this.selectedProject = data
+      } else if (status === 401) {
+        this.$notify({
+          text: 'You\'re not authenticated',
+          type: 'error'
+        })
+
+        return setTimeout(() => {
+          this.$router.push('login')
+        }, 700)
+      } else {
+        return this.$notify({
+          text: 'Error when creating project',
+          type: 'error'
+        })
       }
     },
 
     async updateProject (project) {
-      const { status, data } = await put('projects', project)
+      const { status, data } = await network({
+        method: 'put',
+        route: 'projects',
+        data: project
+      })
 
-      if (status !== 200) {
+      if (status === 401) {
+        this.$notify({
+          text: 'You\'re not authenticated',
+          type: 'error'
+        })
+
+        return setTimeout(() => {
+          this.$router.push('login')
+        }, 700)
+      } else if (status !== 200) {
         return this.$notify({
-          title: 'Error',
-          type: 'errors',
-          message: 'data'
+          text: 'Error when updating project',
+          type: 'error'
         })
       }
 
@@ -152,7 +181,11 @@ export default {
         content
       }
 
-      const { status, data } = await put('about', newAbout)
+      const { status, data } = await network({
+        method: 'put',
+        route: 'about',
+        data: newAbout
+      })
 
       if (status === 200) {
         this.aboutPage = data
@@ -160,6 +193,15 @@ export default {
           title: 'About page updated',
           type: 'success'
         })
+      } else if (status === 401) {
+        this.$notify({
+          text: 'You\'re not authenticated',
+          type: 'error'
+        })
+
+        return setTimeout(() => {
+          this.$router.push('login')
+        }, 700)
       } else {
         this.$notify({
           title: 'Error when updating about page',
@@ -169,14 +211,31 @@ export default {
     },
 
     async deleteProject (id) {
-      const { status, data } = await del('projects', { id })
+      const { status, data } = await network({
+        method: 'delete',
+        route: 'projects',
+        data: { id }
+      })
 
-      if (status !== 200) {
+      if (status === 401) {
+        this.$notify({
+          text: 'You\'re not authenticated',
+          type: 'error'
+        })
+
+        return setTimeout(() => {
+          this.$router.push('login')
+        }, 700)
+      } else if (status !== 200) {
         return this.$notify({
           title: 'Error',
           type: 'error',
           text: data
         })
+      }
+
+      if (id === this.selectedProject._id) {
+        this.selectedProject = null
       }
 
       this.projects = this.projects
@@ -192,7 +251,11 @@ export default {
       const fd = new FormData()
 
       fd.append('image', selectedFile, selectedFile.name)
-      const { status, data: image } = await post('images', fd)
+      const { status, data: image } = await network({
+        method: 'post',
+        route: 'images',
+        data: fd
+      })
 
       if (status === 201) {
         const src = `${apiConfig.url}/uploads/${image.name}`
@@ -203,15 +266,42 @@ export default {
           ...this.images,
           image
         ]
+      } else if (status === 401) {
+        this.$notify({
+          text: 'You\'re not authenticated',
+          type: 'error'
+        })
+
+        return setTimeout(() => {
+          this.$router.push('login')
+        }, 700)
+      } else {
+        this.$notify({
+          text: 'Error when uploading image',
+          type: 'error'
+        })
       }
     },
 
     async deleteImg (image) {
-      const { status } = await del('/images', image)
+      const { status } = await network({
+        method: 'delete',
+        route: '/images',
+        data: image
+      })
 
       if (status === 200) {
         this.images = this.images
           .filter(img => img._id !== image._id)
+      } else if (status === 401) {
+        this.$notify({
+          text: 'You\'re not authenticated',
+          type: 'error'
+        })
+
+        return setTimeout(() => {
+          this.$router.push('login')
+        }, 700)
       }
     },
 

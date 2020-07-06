@@ -69,10 +69,10 @@ $slideOpacity: 0.7;
     max-width: 20rem;
     .project {
       display: block;
-      height: 80%;
+      height: 85%;
 
       &-description {
-        top: 90%;
+        bottom: -3.7rem;
       }
     }
   }
@@ -93,7 +93,6 @@ $slideOpacity: 0.7;
       height: $projectSlideHeight;
       top: 25%;
       left: 15%;
-
       transition: all $slideDurationHalf linear;
 
       &-description {

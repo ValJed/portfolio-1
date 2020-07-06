@@ -8,6 +8,7 @@
         :current-index="index"
         :slides-index="slidesIndex"
         :slides-count="projectsList.length"
+        :is-mobile="isMobile"
       />
       <div
         v-if="!isMobile"

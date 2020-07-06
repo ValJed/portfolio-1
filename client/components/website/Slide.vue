@@ -1,15 +1,16 @@
 <template>
   <transition name="slide">
     <li
-      v-if="showSlide"
+      v-if="showSlide || isMobile"
       class="slide"
       :class="{
-        'slide-active': isCurrentSlide,
-        'slide-next': isNextSlide
+        'slide-active': (isCurrentSlide && !isMobile) || (isActive && isMobile),
+        'slide-next': isNextSlide && !isMobile,
       }"
+      @click="isActive = true"
     >
       <nuxt-link
-        v-if="isCurrentSlide"
+        v-if="isCurrentSlide || isMobile"
         :to="`/projects/${project._id}`"
         class="project"
         prefetch
@@ -58,11 +59,16 @@ export default {
     slidesCount: {
       type: Number,
       required: true
+    },
+    isMobile: {
+      type: Boolean,
+      required: true
     }
   },
   data () {
     return {
-      apiConfig
+      apiConfig,
+      isActive: null
     }
   },
   computed: {

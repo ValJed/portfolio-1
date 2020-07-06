@@ -1,6 +1,6 @@
 <template>
   <header
-    :style="{position: currentPage === 'projects-project' ? 'static' : 'static'}"
+    :class="{opened}"
   >
     <div class="logo">
       <icon
@@ -22,17 +22,17 @@
 
     <transition name="menu">
       <ul v-if="!isMobile" class="menu">
-        <li :class="{active: currentPage === 'home'}">
+        <li>
           <nuxt-link to="/">
             work
           </nuxt-link>
         </li>
-        <li :class="{active: currentPage === 'about'}">
+        <li>
           <nuxt-link to="/about">
             about
           </nuxt-link>
         </li>
-        <li :class="{active: currentPage === 'contact'}">
+        <li>
           <nuxt-link to="/contact">
             contact
           </nuxt-link>
@@ -40,28 +40,37 @@
       </ul>
       <ul v-else-if="opened" class="menu">
         <li>
-          <icon
-            name="work"
-            height="4.375rem"
-            :fill="currentPage === 'index' ? '#F195A5' : none"
-            stroke="#F195A5"
-          />
+          <nuxt-link to="/">
+            <div @click="closeMenu">
+              <icon
+                name="work"
+                height="4.375rem"
+                stroke="#F195A5"
+              />
+            </div>
+          </nuxt-link>
         </li>
         <li>
-          <icon
-            name="about"
-            height="4.375rem"
-            :fill="currentPage === 'About' ? '#F195A5' : none"
-            stroke="#F195A5"
-          />
+          <nuxt-link to="/about">
+            <div @click="closeMenu">
+              <icon
+                name="about"
+                height="4.375rem"
+                stroke="#F195A5"
+              />
+            </div>
+          </nuxt-link>
         </li>
         <li>
-          <icon
-            name="contact"
-            height="4.375rem"
-            fill="none"
-            stroke="#F195A5"
-          />
+          <nuxt-link to="/contact">
+            <div @click="closeMenu">
+              <icon
+                name="contact"
+                height="4.375rem"
+                stroke="#F195A5"
+              />
+            </div>
+          </nuxt-link>
         </li>
       </ul>
     </transition>
@@ -88,9 +97,12 @@ export default {
   },
   computed: {
     currentPage () {
-      console.log('this.$router.currentRoute ===> ', this.$route.name)
-
       return this.$route.name
+    }
+  },
+  methods: {
+    closeMenu () {
+      this.opened = false
     }
   }
 }

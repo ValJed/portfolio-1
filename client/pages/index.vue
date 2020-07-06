@@ -1,12 +1,11 @@
 <template>
-  <div>
-    <!-- <Header :is-mobile="isMobile" /> -->
+  <div class="home">
     <projects-slider :projects="projects" :is-mobile="isMobile" />
   </div>
 </template>
 
 <script>
-import { get } from '../utils/network'
+import network from '@/utils/network'
 import ProjectsSlider from '@/components/website/ProjectsSlider'
 
 export default {
@@ -14,8 +13,8 @@ export default {
     ProjectsSlider
   },
   async asyncData (context) {
-    const { status: projectStatus, data: { projects } } = await get({ route: 'projects', sendToken: false })
-    const { status: imageStatus, data: { images } } = await get({ route: 'images', sendToken: false })
+    const { status: projectStatus, data: { projects } } = await network({ route: 'projects', sendToken: false })
+    const { status: imageStatus, data: { images } } = await network({ route: 'images', sendToken: false })
 
     const onlyProjects = projects.filter(project => !project.isAbout)
 
@@ -33,19 +32,13 @@ export default {
       isMobile: false
     }
   },
-  transition (to, from) {
+  transition (to, from, t) {
     if (to.name === 'projects-project') {
       return {
         name: 'home-to-project',
         duration: 1000
       }
     }
-    // if (to.fullPath === '/about') {
-    //   return {
-    //     name: 'home-to-about',
-    //     duration: 1000
-    //   }
-    // }
     return {
       name: 'page',
       duration: 300
@@ -54,13 +47,6 @@ export default {
   mounted () {
     this.isMobile = window.innerWidth < 599
   }
-  // watch: {
-  //   '$route' (to, from) {
-  //     // const toDepth = to.path.split('/').length
-  //     // const fromDepth = from.path.split('/').length
-  //     // this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-  //   }
-  // },
 }
 </script>
 <style src="./index.scss" lang='scss'></style>

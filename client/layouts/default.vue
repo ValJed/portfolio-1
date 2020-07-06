@@ -15,6 +15,11 @@ export default {
     Header,
     Footer
   },
+  data () {
+    return {
+      isMobile: false
+    }
+  },
   mounted () {
     this.isMobile = window.innerWidth < 599
   }

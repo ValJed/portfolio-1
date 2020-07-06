@@ -43,6 +43,8 @@
 .container {
   background-color: $primary;
   margin: 0 auto;
+  width: 100%;
+  overflow: hidden;
   min-height: 100vh;
   font-family: Roboto;
 }
@@ -109,7 +111,14 @@ li {
   list-style: none;
 }
 
-// Pages aniamations
+// Pages animations
+
+// transition between home page and project page on home page
+.home-to-project-leave-active + .footer {
+  transition: transform .4s ease-in-out .6s;
+  transform: translateX(100%);
+}
+
 @keyframes pageEnterActive {
   0% {
     opacity: 0;

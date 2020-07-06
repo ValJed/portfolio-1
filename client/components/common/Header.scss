@@ -8,6 +8,14 @@ header {
   padding: 1rem 3rem;
   max-width: 1800px;
   margin: 0 auto;
+  transition: all .3s ease-in;
+
+  @include mobile-only {
+    position: fixed;
+    &.opened {
+      background-color: $primary;
+    }
+  }
 
   h1 {
     color: #fff;
@@ -113,6 +121,19 @@ header {
         &:first-child {
           margin-top: 5rem;
         }
+
+        a {
+          .icon {
+            fill: none;
+          }
+
+          &.nuxt-link-exact-active{
+            .icon {
+              fill: $secondary;
+            }
+          }
+        }
+
       }
     }
   }

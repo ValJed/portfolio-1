@@ -1,25 +1,24 @@
 <template>
   <!-- <Header :is-mobile="isMobile"  /> -->
-  <div class="page-content">
-    <div
-      class="project-img"
-      :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})` }"
-    />
-    <h1>{{ project.name }}</h1>
-    <div class="project-content" v-html="project.content" />
+  <div>
+    <div class="page-content">
+      <div
+        class="project-img"
+        :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})` }"
+      />
+      <h1>{{ project.name }}</h1>
+      <div class="project-content" v-html="project.content" />
+    </div>
   </div>
 </template>
 
 <script>
-import { get } from '@/utils/network'
+import network from '@/utils/network'
 import { apiConfig } from '@/utils/config'
 
 export default {
-  components: {
-
-  },
   async asyncData (context) {
-    const { status: projectStatus, data: { project } } = await get(
+    const { status: projectStatus, data: { project } } = await network(
       {
         route: `projects/${context.params.project}`,
         sendToken: false
