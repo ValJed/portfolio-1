@@ -1,47 +1,48 @@
 <template>
-  <div class="container">
-    <Header :is-mobile="isMobile" :style="{position: 'fixed'}" />
+  <!-- <Header :is-mobile="isMobile"  /> -->
+  <div class="page-content">
     <div
       class="project-img"
-      :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${currentProject.img})` }"
+      :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})` }"
     />
-    <h1>{{ currentProject.name }}</h1>
-    <div class="project-content" v-html="currentProject.content" />
-    <Footer />
+    <h1>{{ project.name }}</h1>
+    <div class="project-content" v-html="project.content" />
   </div>
 </template>
 
 <script>
 import { get } from '@/utils/network'
 import { apiConfig } from '@/utils/config'
-import Header from '@/components/website/Header'
-import Footer from '@/components/website/Footer'
 
 export default {
   components: {
-    Header,
-    Footer
+
   },
   async asyncData (context) {
-    const { status: projectStatus, data: { projects } } = await get({ route: 'projects', sendToken: false })
-    // const { status: imageStatus, data: { images } } = await get({ route: 'images', sendToken: false })
+    const { status: projectStatus, data: { project } } = await get(
+      {
+        route: `projects/${context.params.project}`,
+        sendToken: false
+      })
 
     if (projectStatus === 200) {
-      return { projects }
+      return { project }
     }
   },
   data () {
     return {
-      projects: [],
+      project: {},
       projectId: this.$route.params.project,
       apiConfig,
       isMobile: false
     }
   },
-  computed: {
-    currentProject () {
-      return this.projects
-        .find(project => project._id === this.projectId)
+  transition (to, from) {
+    if (!['index', 'projects-project'].includes(to.name)) {
+      return {
+        name: 'page',
+        duration: 300
+      }
     }
   },
   mounted () {

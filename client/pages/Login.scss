@@ -7,11 +7,13 @@
     width: 300px;
     margin: 0 auto;
     padding: 25px;
-    border: solid 2px #000;
     border-radius: 5px;
+    label {
+      color: #fff;
+    }
     input {
       width: 100%;
-      margin: 15px 0;
+      margin: 15px 0 20px;
     }
     button {
       margin-top: 10px;

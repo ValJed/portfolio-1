@@ -54,7 +54,6 @@ export default class BlockquoteNode extends Node {
   }
 
   commands ({ type, schema }) {
-    console.log('type ===> ', type)
     return attrs => toggleWrap(type, attrs)
   }
 }

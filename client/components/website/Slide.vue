@@ -12,6 +12,7 @@
         v-if="isCurrentSlide"
         :to="`/projects/${project._id}`"
         class="project"
+        prefetch
         :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})` }"
       >
         <div class="project-description">
@@ -21,7 +22,7 @@
           <h3>{{ project.description }}</h3>
         </div>
       </nuxt-link>
-         <div
+      <div
         v-else
         class="project"
         :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})` }"
@@ -74,9 +75,11 @@ export default {
         : this.currentIndex === 0
     },
     showSlide () {
-      return !this.isLastSlide
+      const show = !this.isLastSlide
         ? this.isCurrentSlide || this.isNextSlide
         : this.isCurrentSlide || this.currentIndex === 0
+
+      return show
     },
 
     isLastSlide () {

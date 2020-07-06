@@ -1,21 +1,16 @@
 <template>
-  <div class="container">
-    <Header :is-mobile="isMobile" />
+  <div>
+    <!-- <Header :is-mobile="isMobile" /> -->
     <projects-slider :projects="projects" :is-mobile="isMobile" />
-    <Footer />
   </div>
 </template>
 
 <script>
 import { get } from '../utils/network'
-import Header from '@/components/website/Header'
-import Footer from '@/components/website/Footer'
 import ProjectsSlider from '@/components/website/ProjectsSlider'
 
 export default {
   components: {
-    Header,
-    Footer,
     ProjectsSlider
   },
   async asyncData (context) {
@@ -45,15 +40,15 @@ export default {
         duration: 1000
       }
     }
-    if (to.fullPath === '/about') {
-      return {
-        name: 'home-to-about',
-        duration: 1000
-      }
-    }
+    // if (to.fullPath === '/about') {
+    //   return {
+    //     name: 'home-to-about',
+    //     duration: 1000
+    //   }
+    // }
     return {
       name: 'page',
-      duration: 0
+      duration: 300
     }
   },
   mounted () {

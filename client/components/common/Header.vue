@@ -1,5 +1,7 @@
 <template>
-  <header>
+  <header
+    :style="{position: currentPage === 'projects-project' ? 'static' : 'static'}"
+  >
     <div class="logo">
       <icon
         name="logo"
@@ -41,7 +43,7 @@
           <icon
             name="work"
             height="4.375rem"
-            :fill="currentPage === 'home' ? '#F195A5' : none"
+            :fill="currentPage === 'index' ? '#F195A5' : none"
             stroke="#F195A5"
           />
         </li>
@@ -49,7 +51,7 @@
           <icon
             name="about"
             height="4.375rem"
-            fill="none"
+            :fill="currentPage === 'About' ? '#F195A5' : none"
             stroke="#F195A5"
           />
         </li>
@@ -81,14 +83,15 @@ export default {
   },
   data () {
     return {
-      currentPage: '',
       opened: false
     }
   },
-  mounted () {
-    const { path } = this.$router.currentRoute
+  computed: {
+    currentPage () {
+      console.log('this.$router.currentRoute ===> ', this.$route.name)
 
-    this.currentPage = path.replace('/', '') || 'home'
+      return this.$route.name
+    }
   }
 }
 </script>

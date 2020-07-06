@@ -1,10 +1,9 @@
 <template>
   <div class="container">
-    <Header />
-    <modal />
+    <!-- <Header :is-mobile="isMobile" /> -->
+    <modal v-if="authorized" />
 
-    <div class="projects">
-
+    <div v-if="authorized" class="projects">
       <div class="projects-list">
         <button @click="selectedProject = null; aboutEditing = false">
           Create new project
@@ -37,17 +36,18 @@
         </client-only>
       </div>
     </div>
+    <NotFound v-else />
+
     <notifications position="bottom left" classes="notifications" />
   </div>
 </template>
 
 <script>
-// import Logo from '~/components/Logo.vue'
 import { apiConfig } from '../utils/config'
 import EditProject from '@/components/admin/EditProject'
 import ProjectList from '@/components/admin/ProjectList'
 import EditAbout from '@/components/admin/EditAbout'
-import Header from '@/components/website/Header'
+import NotFound from '@/pages/NotFound'
 
 import { get, post, put, del } from '@/utils/network'
 
@@ -58,7 +58,7 @@ export default {
     EditProject,
     ProjectList,
     EditAbout,
-    Header
+    NotFound
   },
   async asyncData (context) {
     const { status: projectStatus, data: { projects } } = await get({ route: 'projects', sendToken: false })
@@ -80,19 +80,25 @@ export default {
   data () {
     return {
       aboutEditing: false,
+      authorized: false,
       selectedProject: null,
-      // selectedProject: {
-      //   name: '',
-      //   description: '',
-      //   content: '',
-      //   img: ''
-      // },
+      isMobile: false,
       projects: [],
       aboutPage: {
         _id: '',
         content: ''
       },
       images: []
+    }
+  },
+
+  async mounted () {
+    this.isMobile = window.innerWidth < 599
+
+    const { status } = await get({ route: 'verify' })
+
+    if (status === 200) {
+      this.authorized = true
     }
   },
 
@@ -140,12 +146,7 @@ export default {
       })
     },
 
-    // updateAboutContent (content) {
-    //   this.aboutPage.content = content
-    // },
-
     async updateAboutProject (content) {
-      console.log('content ===> ', content)
       const newAbout = {
         ...this.aboutPage,
         content

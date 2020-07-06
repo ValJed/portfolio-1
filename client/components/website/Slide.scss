@@ -126,6 +126,7 @@ $slideOpacity: 0.7;
       position: absolute;
       transform: translateX(95%);
       top: 0;
+      transition: all $slideDurationHalf linear $slideDurationHalf;
 
       .project {
         height: 40%;

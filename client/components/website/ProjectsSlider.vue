@@ -1,5 +1,5 @@
 <template>
-  <div class="projects-slider">
+  <div class="projects-slider page-content">
     <ul>
       <slide
         v-for="(project, index) in projectsList"
@@ -50,6 +50,14 @@ export default {
       apiConfig,
       projectsList: this.projects,
       throttleSlide: this.throttle(this.nextSlide, 1000)
+    }
+  },
+  created () {
+    if (this.projects.length === 2) {
+      this.projectsList = [
+        ...this.projects,
+        ...this.projects
+      ]
     }
   },
   mounted () {

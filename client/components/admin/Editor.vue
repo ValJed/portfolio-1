@@ -17,41 +17,41 @@
           class="menubar__button"
           @click="commands.undo"
         >
-          <icon name="undo" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="undo" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <button
           class="menubar__button"
           @click="commands.redo"
         >
-          <icon name="redo" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="redo" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.bold() }"
           @click="commands.bold"
         >
-          <icon name="bold" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="bold" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.italic() }"
           @click="commands.italic"
         >
-          <icon name="italic" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="italic" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.strike() }"
           @click="commands.strike"
         >
-          <icon name="strike" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="strike" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.underline() }"
           @click="commands.underline"
         >
-          <icon name="underline" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="underline" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <!-- <button
           class="menubar__button"
@@ -72,21 +72,21 @@
           :class="{ 'is-active': isActive.customText({ align: 'left' }) }"
           @click="commands.customText({ align: 'left' })"
         >
-          <icon name="left" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="left" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.customText({ align: 'center' }) }"
           @click="commands.customText({ align: 'center' })"
         >
-          <icon name="center" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="center" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.customText({ align: 'right' }) }"
           @click="commands.customText({ align: 'right' })"
         >
-          <icon name="right" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="right" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
 
         <button
@@ -95,7 +95,7 @@
           @click="commands.customColumn({ columnSize: 1 })"
         >
           I
-          <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#000" /> -->
+          <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#fff" /> -->
         </button>
 
         <button
@@ -104,7 +104,7 @@
           @click="commands.customColumn({ columnSize: 2 })"
         >
           II
-          <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#000" /> -->
+          <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#fff" /> -->
         </button>
         <button
           class="menubar__button"
@@ -112,7 +112,7 @@
           @click="commands.customColumn({ columnSize: 3 })"
         >
           III
-          <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#000" /> -->
+          <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#fff" /> -->
         </button>
 
         <button
@@ -120,7 +120,7 @@
           class="menubar__button"
           @click="openModal(commands.image)"
         >
-          <icon name="image" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="image" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <button
           class="menubar__button"
@@ -148,28 +148,28 @@
           :class="{ 'is-active': isActive.bullet_list() }"
           @click="commands.bullet_list"
         >
-          <icon name="ul" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="ul" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.ordered_list() }"
           @click="commands.ordered_list"
         >
-          <icon name="ol" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="ol" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.blockquote() }"
           @click="commands.blockquote"
         >
-          <icon name="quote" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="quote" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.code_block() }"
           @click="commands.code_block"
         >
-          <icon name="code" width="0.8rem" height="0.8rem" fill="#000" />
+          <icon name="code" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
       </div>
     </editor-menu-bar>
@@ -208,7 +208,6 @@ import ImageModal from '../admin/ImageModal'
 import Icon from '../common/Icon'
 import CustomText from './editorCustomNodes/text'
 import CustomColumn from './editorCustomNodes/column'
-// import CustomHeading from './editorCustomNodes/heading'
 
 export default {
   name: 'EditorBlock',
@@ -264,7 +263,6 @@ export default {
           new HardBreak(),
           new CustomText({ alignment: ['left', 'center', 'right'] }),
           new CustomColumn({ columnSizes: [1, 2, 3] }),
-          // new CustomHeading({ levels: [1, 2, 3] }),
           new Heading({ levels: [1, 2, 3] }),
           new Image(),
           new ListItem(),

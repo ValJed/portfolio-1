@@ -8,9 +8,29 @@
   src: url("../fonts/Roboto-Regular.ttf") format("truetype"),
  }
 
- * {
+ html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
- }
+}
+
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+    margin: 0;
+  }
 
  a {
    text-decoration: none;
@@ -46,23 +66,25 @@
 input[type="text"],
 input[type="password"] {
   height: 33px;
-  border: solid 2px #000;
+  border: solid 1px $secondary;
+  color: #fff;
+  background: none;
   border-radius: 5px;
   padding-left: 3px;
 }
 
 button {
   outline: none;
-  border: solid 2px #000;
-  background: #fff;
-  padding: 7px;
+  border: solid 1px $secondary;
+  background: none;
+  padding: 8px;
   border-radius: 5px;
   cursor: pointer;
-  color: #000;
+  color: #fff;
   transition: all .2s ease-in-out;
 
   &:hover {
-    box-shadow: 4px -4px #000;
+    box-shadow: 4px -4px $secondary;
   }
 
   &::-moz-focus-inner {
@@ -85,4 +107,37 @@ ul {
 }
 li {
   list-style: none;
+}
+
+// Pages aniamations
+@keyframes pageEnterActive {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.page-enter-active {
+  .page-content {
+    animation: .4s ease backwards pageEnterActive;
+  }
+}
+
+@keyframes pageLeaveActive {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.page-leave-active {
+  .page-content {
+    animation: .4s ease forwards pageLeaveActive;
+  }
 }

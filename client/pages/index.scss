@@ -41,31 +41,26 @@
   }
 }
 
-@keyframes projectTitleTransition {
+@keyframes projectTransition2 {
   0% {
-    opacity: 0;
-    // transform: translateX(-3rem);
+    width: $projectSlideWidth;
+    height: $projectSlideHeight;
+    top: 25%;
+    left: 15%;
   }
 
   // 50% {
-  //   opacity: 1;
-  //   transform: translateX(-3rem);
+  //   width: 0;
+  //   height: 80vh;
+  //   top: -5rem;
+  //   left: 0;
   // }
 
   100% {
-    opacity: 1;
-    // transform: translateX(0);
-  }
-}
-
-// transition between home page and project page on project page
-.home-to-project-enter-active {
-  > h1 {
-    // position: relative;
-
-    animation: .3s ease 0 1 normal none projectTi tleTransition;
-    // animation: .3s ease .7s 1 normal backwards slideText;
-
+    width: 0;
+    height: 80vh;
+    top: -5rem;
+    left: 50%;
   }
 }
 
@@ -87,7 +82,7 @@
       }
       &-active {
         .project {
-          animation: 1s ease projectTransition;
+          animation: 1.1s ease projectTransition;
           .project-description {
             transition: all .2s ease;
             opacity: 0;
@@ -102,5 +97,58 @@
   .footer {
     transition: all .4s ease-in-out .6s;
     transform: translateX(100%);
+  }
+}
+
+.page-leave-active {
+  .projects-slider {
+    transition: all .5s ease;
+    opacity: 0;
+  }
+}
+
+@keyframes projectTitleTransition {
+  0% {
+    opacity: 0;
+    transform: translateX(-3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes projectImgTransition {
+  0% {
+    width: 0;
+    left: 50%;
+  }
+
+  // 10% {
+  //   opacity: 1;
+  //   width: 0;
+  //   left: 50%;
+  // }
+
+  100% {
+    width: 100%;
+    left: 0;
+  }
+}
+
+
+// transition between home page and project page on project page
+.home-to-project-enter-active {
+  .page-content {
+    > h1 {
+      animation: .3s ease backwards projectTitleTransition;
+    }
+
+    .project {
+      &-img {
+        // animation: .5s ease backwards projectImgTransition;
+      }
+    }
   }
 }

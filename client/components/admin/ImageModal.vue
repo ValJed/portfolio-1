@@ -22,10 +22,9 @@
             </li>
           </ul>
 
-          <div v-if="tab === 1" class="upload">
-            <h3>Url</h3>
+          <div v-if="tab === 1" :class="{ active: tab === 1 }" class="upload">
+            <label>Url</label>
             <input id="url" v-model="imageSrc" type="text">
-            <h3>Upload</h3>
             <div
               class="upload-file"
               :style="{ backgroundImage: `url(${imagePreviewUrl})`}"
@@ -40,7 +39,7 @@
               Add
             </button>
           </div>
-          <div v-if="tab === 0">
+          <div v-if="tab === 0" :class="{ active: tab === 0 }">
             <ul class="image-list">
               <li
                 v-for="image in images"
@@ -55,7 +54,7 @@
                   <icon name="image" fill="#fff" width="1.2rem" height="1.2rem" />
                 </span>
                 <div class="img-add">
-                  <icon name="cross" fill="#fff" width="1.2rem" height="1.2rem" />
+                  <icon name="cross" fill="#fff" width="1.5rem" height="1.5rem" />
                 </div>
               </li>
             </ul>
