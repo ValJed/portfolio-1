@@ -30,9 +30,11 @@
     }
   }
 
-  > ul {
-    @include mobile-only {
-      margin: 6rem 1.875rem 0;
+  @include mobile-only {
+    padding-top: 5rem;
+
+    > ul {
+      margin: 0 1.875rem;
     }
   }
 

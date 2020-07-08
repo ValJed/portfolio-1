@@ -50,10 +50,13 @@
 
 @keyframes listItemTransitionMobile {
   0% {
+    position: absolute;
     margin: 2rem auto 3rem;
   }
 
   100% {
+    height: 80vh;
+    top: -5rem;
     margin: 2rem 0 3rem;
     width: 100;
     max-width: none;
@@ -62,6 +65,8 @@
 
 @keyframes projectTransitionMobile {
   0% {
+    position: absolute;
+    width: 100%;
     height: 85%;
   }
 
@@ -73,13 +78,19 @@
   // }
 
   100% {
+    position: absolute;
+    top: -5rem;
+    left: 0;
+    right: 0;
     height: 80vh;
   }
 }
 
 // transition between home page and project page on home page
 .home-to-project-leave-active {
+  position: relative;
   transition: all 1s linear;
+
   @include tablet-portrait {
     // .projects-slider {
       .arrow {
@@ -107,14 +118,17 @@
   }
 
   @include mobile-only {
+    .projects-slider {
+      position: static;
+    }
     ul {
-      position: relative;
-      animation: 1.1s ease listTransitionMobile;
+      // animation: 1.1s ease listTransitionMobile;
       .slide {
+        max-width: none;
         &-active {
           animation: 1.1s ease listItemTransitionMobile;
           .project {
-            animation: 1.1s ease projectTransitionMobile;
+            // animation: 1.1s ease forwards projectTransitionMobile;
             // position: ;
             .project-description {
               transition: all .2s ease;
