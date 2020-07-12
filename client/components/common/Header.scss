@@ -138,10 +138,25 @@ header {
     }
   }
 
-  .menu-enter-active, .menu-leave-active {
-    transition: all .3s ease-in;
+  .menu-enter-active {
+    transition: opacity .3s linear;
   }
-  .menu-enter, .menu-leave-to {
+
+  .menu-leave-active {
+    transition: opacity .2s linear .3s;
+    a {
+      transition: opacity .3s linear;
+    }
+  }
+
+  .menu-enter {
     opacity: 0;
+  }
+
+  .menu-leave-to {
+    opacity: 0;
+    a {
+      opacity: 0;
+    }
   }
 }

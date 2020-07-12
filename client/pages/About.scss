@@ -6,6 +6,10 @@
     min-height: calc(100vh - 10rem);
     padding-top: 2rem;
 
+    @include mobile-only {
+      padding-top: 7rem;
+    }
+
     h1 {
       max-width: 65rem;
       padding: 0 1rem;

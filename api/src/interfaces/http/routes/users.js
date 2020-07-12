@@ -8,7 +8,7 @@ module.exports = ({
 }) => {
   const router = new express.Router()
 
-  const verifyToken = async (req, res, next, userService) => {
+  const verifyToken = async (req, res, next) => {
     const { authorization } = req.headers
 
     if (!authorization || !authorization.includes('Bearer ')) {
@@ -16,7 +16,6 @@ module.exports = ({
     }
 
     const token = authorization.replace('Bearer ', '')
-
     const valid = await userService.verify(token)
 
     if (!valid) {
@@ -30,7 +29,6 @@ module.exports = ({
   router.post('/login', async (req, res) => {
     try {
       const data = req.body
-
       const response = await userService.login(data)
 
       if (response.success) {

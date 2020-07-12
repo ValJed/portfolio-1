@@ -32,8 +32,10 @@ export default {
       isMobile: false
     }
   },
-  transition (to, from, t) {
-    if (to.name === 'projects-project') {
+  transition (to, from) {
+    const isMobile = window.innerWidth < 599
+
+    if (to.name === 'projects-project' && !isMobile) {
       return {
         name: 'home-to-project',
         duration: 1000

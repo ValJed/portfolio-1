@@ -16,6 +16,10 @@ export default {
     ]
   },
 
+  router: {
+    middleware: ['isMobile']
+  },
+
   /*
   ** Customize the progress-bar color
   */

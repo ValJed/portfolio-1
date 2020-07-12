@@ -48,17 +48,18 @@
   }
 }
 
-@keyframes listItemTransitionMobile {
+@keyframes slideTransitionMobile {
   0% {
-    position: absolute;
+    // position: absolute;
     margin: 2rem auto 3rem;
+    width: 20rem;
   }
 
   100% {
     height: 80vh;
     top: -5rem;
-    margin: 2rem 0 3rem;
-    width: 100;
+    margin: 0 auto;
+    width: 100%;
     max-width: none;
   }
 }
@@ -124,9 +125,8 @@
     ul {
       // animation: 1.1s ease listTransitionMobile;
       .slide {
-        max-width: none;
         &-active {
-          animation: 1.1s ease listItemTransitionMobile;
+          animation: 1.1s ease slideTransitionMobile;
           .project {
             // animation: 1.1s ease forwards projectTransitionMobile;
             // position: ;
