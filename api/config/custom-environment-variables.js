@@ -4,5 +4,6 @@ module.exports = {
   },
   dbConfig: {
     uri: 'MONGODB_URI',
+    database: 'MONGODB_DB'
   },
 }
