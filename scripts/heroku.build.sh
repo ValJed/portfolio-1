@@ -18,7 +18,9 @@ fi
   cd $PROJECT_ROOT
 
   if [ "$BUILD_ENV" = "aurore-grondin" ]; then
-    npm workspace aurore-grondin build
+    npm install && npm run build
+  elif [ "$BUILD_ENV" = "api" ]; then
+    npm install
   else
     echo "Error: no build config for INATO_BUILD_ENV value '$INATO_BUILD_ENV'"
     exit 1

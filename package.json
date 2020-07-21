@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "./scripts/heroku.build"
+    "heroku-postbuild": "./scripts/heroku.build.sh"
   },
   "repository": {
     "type": "git",
