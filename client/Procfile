@@ -1,1 +1,1 @@
-web: echo $PWD && npm run start
+web: cd client && npm run start
