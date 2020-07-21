@@ -1,3 +1,3 @@
 export const apiConfig = {
-  url: 'http://localhost:7000/api'
+  url: process.env.API_URI || 'http://localhost:7000/api'
 }
