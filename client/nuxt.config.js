@@ -16,6 +16,10 @@ export default {
     ]
   },
 
+  server: {
+    port: process.env.PORT || 3000 // par défaut : 3000
+  },
+
   router: {
     middleware: ['isMobile']
   },
