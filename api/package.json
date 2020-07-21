@@ -5,7 +5,7 @@
   "main": "src/app/index.js",
   "scripts": {
     "dev": "NODE_ENV=development nodemon .",
-    "prod": "NODE_ENV=production node .",
+    "prod": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jed",
