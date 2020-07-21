@@ -11,7 +11,8 @@
   "author": "Jed",
   "license": "ISC",
   "engines": {
-    "node": "12.16.1"
+    "node": "12.16.1",
+    "npm": "6.13.4"
   },
   "dependencies": {
     "config": "^3.3.1",
