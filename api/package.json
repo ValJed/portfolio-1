@@ -9,6 +9,9 @@
   },
   "author": "Jed",
   "license": "ISC",
+  "engines": {
+    "node": "12.16.1"
+  },
   "dependencies": {
     "config": "^3.3.1",
     "cors": "^2.8.5",
