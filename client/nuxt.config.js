@@ -15,6 +15,10 @@ export default {
     ]
   },
 
+  env: {
+    apiUrl: process.env.API_URI || 'http://localhost:7000/api'
+  },
+
   server: {
     port: process.env.PORT || 3000,
     host: process.env.HOST || 'localhost'
