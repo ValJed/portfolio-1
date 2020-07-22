@@ -53,7 +53,7 @@ module.exports = ({
   })
 
   // Creating new user
-  router.post('/users', verifyToken, async (req, res, next) => {
+  router.post('/users', async (req, res, next) => {
     try {
       const data = req.body
 
