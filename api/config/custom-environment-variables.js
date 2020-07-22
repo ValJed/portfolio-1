@@ -6,4 +6,7 @@ module.exports = {
     uri: 'MONGODB_URI',
     database: 'MONGODB_DB'
   },
+  corsOptions: {
+    origin: 'CORS_ORIGIN',
+  }
 }

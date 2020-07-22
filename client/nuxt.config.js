@@ -1,6 +1,3 @@
-console.log('process.env.PORT ===> ', process.env.PORT)
-console.log('process.env.HOST ===> ', process.env.HOST)
-
 export default {
   mode: 'universal',
   /*
