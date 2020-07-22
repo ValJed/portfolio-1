@@ -14,6 +14,8 @@ export default async ({
     ...token ? { Authorization: `Bearer ${token}` } : {}
   }
 
+  console.log('apiConfig.url ===> ', apiConfig.url)
+
   try {
     return await axios({
       url: `${apiConfig.url}/${route}`,
