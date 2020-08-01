@@ -17,10 +17,8 @@ const comparePsw = async (password, hash, salt) => {
 }
 
 const encryptFileName = (fileName) => {
-  const nameToHash = fileName + Date.now()
-
+  const nameToHash = fileName.toLowerCase()
   const salt = crypto.randomBytes(8).toString('hex')
-
   const hash = crypto.pbkdf2Sync(nameToHash, salt, 100, 25, 'sha512').toString('hex')
 
   if (fileName.includes('.png')) {
@@ -32,6 +30,8 @@ const encryptFileName = (fileName) => {
   if (fileName.includes('.gif')) {
     return `${hash}.gif`
   }
+
+  console.error('This type of file is not supported !')
 }
 
 module.exports = {

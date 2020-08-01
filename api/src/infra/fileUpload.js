@@ -1,8 +1,6 @@
 const multer = require('multer')
 
 module.exports = ({ path }, encrypt) => {
-  console.log('path ===> ', path)
-
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, path)
