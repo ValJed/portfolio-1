@@ -91,7 +91,8 @@ module.exports = ({
     return new Promise((resolve, reject) => {
       fs.unlink(path.join(pathToFile, name), (err) => {
         if (err) {
-          reject(err)
+          log.info('This img doesn\'t exist as a file')
+          resolve()
         }
         resolve()
       })
@@ -102,6 +103,7 @@ module.exports = ({
     const { deletedCount } = await imageRepo.deleteOne(id)
 
     if (deletedCount !== 1) {
+      log.info(`This img doesn't exists in DB ${name}`)
       throw new Error('Error when deleting image reference in database.')
     }
 
