@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { apiConfig } from '@/utils/config'
+// import { apiConfig } from '@/utils/config'
 import EditProject from '@/components/admin/EditProject'
 import ProjectList from '@/components/admin/ProjectList'
 import EditAbout from '@/components/admin/EditAbout'
@@ -257,8 +257,11 @@ export default {
         data: fd
       })
 
+      console.log('image ===> ', image)
+
       if (status === 201) {
-        const src = `${apiConfig.url}/uploads/${image.name}`
+        // const src = `${apiConfig.url}/uploads/${image.name}`
+        const src = image.url
 
         command({ src })
 

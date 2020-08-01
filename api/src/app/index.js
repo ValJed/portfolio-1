@@ -9,6 +9,7 @@ const userService = require('./services/userService')
 
 // Infra
 const database = require('../infra/mongodb')
+const cloudinary = require('../infra/cloudinary')
 
 // Repositories
 const userRepository = require('../infra/mongodb/repositories/userRepo')
@@ -22,10 +23,12 @@ const fileUpload = require('../infra/fileUpload')
 
 const dbConfig = config.get('dbConfig')
 const uploadConfig = config.get('uploadConfig')
+const cloudinaryConfig = config.get('cloudinaryConfig')
 
 const startApp = async () => {
   const client = await database.connect(dbConfig)
   const db = database.db()
+  const cloud = cloudinary(cloudinaryConfig)
 
   const userRepo = userRepository(db)
   const projectRepo = ProjectsRepository(db)
@@ -35,12 +38,14 @@ const startApp = async () => {
     config,
     database: client,
     log: logger,
-    upload: fileUpload(uploadConfig, encrypt),
+    upload: fileUpload(uploadConfig, encrypt, cloud),
     services: {
       project: ProjectService({
         projectRepo,
         imageRepo,
         uploadConfig,
+        cloud,
+        encrypt,
         jwt: jwt(config),
         log: logger
       }),

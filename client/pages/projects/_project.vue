@@ -4,7 +4,7 @@
     <div class="page-content">
       <div
         class="project-img"
-        :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})` }"
+        :style="{ backgroundImage: `url(${project.imgUrl})` }"
       />
       <h1>{{ project.name }}</h1>
       <div class="project-content" v-html="project.content" />

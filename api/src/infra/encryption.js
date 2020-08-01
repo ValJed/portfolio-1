@@ -19,7 +19,7 @@ const comparePsw = async (password, hash, salt) => {
 const encryptFileName = (fileName) => {
   const nameToHash = fileName.toLowerCase()
   const salt = crypto.randomBytes(8).toString('hex')
-  const hash = crypto.pbkdf2Sync(nameToHash, salt, 100, 25, 'sha512').toString('hex')
+  const hash = crypto.pbkdf2Sync(nameToHash, salt, 100, 15, 'sha512').toString('hex')
 
   if (nameToHash.includes('.png')) {
     return `${hash}.png`

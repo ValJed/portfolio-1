@@ -18,9 +18,9 @@
         <input v-model="project.description" type="text">
       </div>
       <div
-        v-if="project.img"
+        v-if="project.imgUrl"
         class="edit-project-img"
-        :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})`}"
+        :style="{ backgroundImage: `url(${project.imgUrl})`}"
       />
     </div>
     <editor
@@ -77,7 +77,7 @@ export default {
       project: {
         name: '',
         description: '',
-        img: '',
+        imgUrl: '',
         content: ''
       }
     }
@@ -90,7 +90,7 @@ export default {
         this.project = {
           name: '',
           description: '',
-          img: '',
+          imgUrl: '',
           content: ''
         }
       }
@@ -108,7 +108,7 @@ export default {
     },
 
     updateMainImg (img) {
-      this.project.img = img.name
+      this.project.imgUrl = img.url
     }
   }
 }

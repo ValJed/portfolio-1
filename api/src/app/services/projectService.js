@@ -2,12 +2,17 @@ const ProjectEntity = require('../../domain/Project')
 const AboutEntity = require('../../domain/About')
 const fs = require('fs')
 const path = require('path')
+const Datauri = require('datauri/parser');
+const cloudinary = require('../../infra/cloudinary');
+const dUri = new Datauri()
 
 module.exports = ({
   // usersRepo,
   projectRepo,
   imageRepo,
   uploadConfig,
+  cloud,
+  encrypt,
   jwt,
   log
 }) => {
@@ -87,6 +92,47 @@ module.exports = ({
     throw new Error('Error when inserting image in database.')
   }
 
+  const createAndUploadImage = async (file) => {
+    const fileName = encrypt.encryptFileName(file.originalname)
+    file.name = fileName
+    const fileData = await (dUri.format(path.extname(file.originalname).toString(), file.buffer)).content
+
+    const { public_id, url } = await cloud.uploader.upload(fileData)
+
+    console.log('url ===> ', require('util').inspect(url, { colors: true, depth: 2 }))
+
+    const image = {
+      name: public_id,
+      url
+    }
+
+    const { insertedCount, insertedId } = await imageRepo.createOne(image)
+
+    if (insertedCount === 1) {
+      return {
+        _id: insertedId,
+        ...image
+      }
+    }
+
+    throw new Error('Error when inserting image in database.')
+
+
+    // cloud.uploader.upload(fileData, (err, result) => {
+    //   if (err) {
+    //     console.log('err ===> ', err)
+    //   }
+
+    //   console.log('result ===> ', result)
+    // })
+
+    // const res = cloud.uploader.upload(file.buffer, (err, result) => {
+    //   console.log(result, err);
+    // })
+
+    return true
+  }
+
   const unlinkImg = (pathToFile, name) => {
     return new Promise((resolve, reject) => {
       fs.unlink(path.join(pathToFile, name), (err) => {
@@ -100,16 +146,32 @@ module.exports = ({
   }
 
   const deleteImage = async (id, name) => {
+    const deleted = await cloud.uploader.destroy(name)
+
+    console.log('deleted ===> ', require('util').inspect(deleted, { colors: true, depth: 2 }))
+
     const { deletedCount } = await imageRepo.deleteOne(id)
 
     if (deletedCount !== 1) {
       log.info(`This img doesn't exists in DB ${name}`)
     }
 
-    const pathToFile = path.join(process.cwd(), uploadConfig.path)
+    // const pathToFile = path.join(process.cwd(), uploadConfig.path)
 
-    await unlinkImg(pathToFile, name)
+    // await unlinkImg(pathToFile, name)
   }
+
+  // const deleteImage = async (id, name) => {
+  //   const { deletedCount } = await imageRepo.deleteOne(id)
+
+  //   if (deletedCount !== 1) {
+  //     log.info(`This img doesn't exists in DB ${name}`)
+  //   }
+
+  //   const pathToFile = path.join(process.cwd(), uploadConfig.path)
+
+  //   await unlinkImg(pathToFile, name)
+  // }
 
   const getAboutProject = async () => {
     return projectRepo.getAboutProject()
@@ -140,6 +202,7 @@ module.exports = ({
     deleteProject,
     getImages,
     createImage,
+    createAndUploadImage,
     deleteImage,
     getAboutProject,
     updateOrCreateAbout

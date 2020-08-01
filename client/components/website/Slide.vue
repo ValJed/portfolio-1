@@ -14,7 +14,7 @@
         :to="`/projects/${project._id}`"
         class="project"
         prefetch
-        :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})` }"
+        :style="{ backgroundImage: `url(${project.imgUrl})` }"
       >
         <div class="project-description">
           <h1>
@@ -26,7 +26,7 @@
       <div
         v-else
         class="project"
-        :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${project.img})` }"
+        :style="{ backgroundImage: `url(${project.imgUrl})` }"
       >
         <div class="project-description">
           <h1>

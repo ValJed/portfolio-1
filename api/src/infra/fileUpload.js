@@ -1,16 +1,19 @@
 const multer = require('multer')
 
-module.exports = ({ path }, encrypt) => {
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, path)
-    },
-    filename: (req, file, cb) => {
-      const fileHash = encrypt.encryptFileName(file.originalname)
+module.exports = ({ path }, encrypt, cloud) => {
+  // const storage = multer.diskStorage({
+  //   destination: (req, file, cb) => {
 
-      cb(null, fileHash)
-    }
-  })
+  //     cb(null, path)
+  //   },
+  //   filename: (req, file, cb) => {
+  //     const fileHash = encrypt.encryptFileName(file.originalname)
 
-  return multer({ storage })
+  //     cb(null, fileHash)
+  //   }
+  // })
+
+  // return multer({ storage })
+
+  return multer()
 }

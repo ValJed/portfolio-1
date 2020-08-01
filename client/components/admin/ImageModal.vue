@@ -44,8 +44,8 @@
               <li
                 v-for="image in images"
                 :key="image._id"
-                :style="{ backgroundImage: `url(${apiConfig.url}/uploads/${image.name})`}"
-                @click="insertImage(image.name)"
+                :style="{ backgroundImage: `url(${image.url})`}"
+                @click="insertImage(image.url)"
               >
                 <span class="img-delete" @click.stop="deleteImg(image)">
                   <icon name="trash3" fill="#fff" width="1.2rem" height="1.2rem" />
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { apiConfig } from '../../utils/config'
+// import { apiConfig } from '../../utils/config'
 import Icon from '../common/Icon'
 
 export default {
@@ -98,8 +98,8 @@ export default {
       imagePreviewUrl: '',
       command: null,
       opened: false,
-      tab: 1,
-      apiConfig
+      tab: 1
+      // apiConfig
     }
   },
   computed: {
@@ -125,10 +125,8 @@ export default {
       this.opened = !this.opened
     },
 
-    insertImage (imgName) {
-      const src = `${apiConfig.url}/uploads/${imgName}`
-
-      this.command({ src })
+    insertImage (imgUrl) {
+      this.command({ src: imgUrl })
     },
 
     fileChange (e) {
