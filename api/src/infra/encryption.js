@@ -21,13 +21,13 @@ const encryptFileName = (fileName) => {
   const salt = crypto.randomBytes(8).toString('hex')
   const hash = crypto.pbkdf2Sync(nameToHash, salt, 100, 25, 'sha512').toString('hex')
 
-  if (fileName.includes('.png')) {
+  if (nameToHash.includes('.png')) {
     return `${hash}.png`
   }
-  if (fileName.includes('.jpg')) {
+  if (nameToHash.includes('.jpg')) {
     return `${hash}.jpg`
   }
-  if (fileName.includes('.gif')) {
+  if (nameToHash.includes('.gif')) {
     return `${hash}.gif`
   }
 
