@@ -24,9 +24,9 @@ export default {
     host: process.env.HOST || 'localhost'
   },
 
-  router: {
-    middleware: ['isMobile']
-  },
+  // router: {
+  //   middleware: ['isMobile']
+  // },
 
   /*
   ** Customize the progress-bar color
