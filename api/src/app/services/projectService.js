@@ -104,7 +104,6 @@ module.exports = ({
 
     if (deletedCount !== 1) {
       log.info(`This img doesn't exists in DB ${name}`)
-      throw new Error('Error when deleting image reference in database.')
     }
 
     const pathToFile = path.join(process.cwd(), uploadConfig.path)
