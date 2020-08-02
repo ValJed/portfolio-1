@@ -3,7 +3,8 @@ const AboutEntity = require('../../domain/About')
 const fs = require('fs')
 const path = require('path')
 const Datauri = require('datauri/parser');
-const cloudinary = require('../../infra/cloudinary');
+const { ObjectID } = require('mongodb')
+
 const dUri = new Datauri()
 
 module.exports = ({
@@ -17,13 +18,19 @@ module.exports = ({
   log
 }) => {
   const getProjects = async (id) => {
-    return id ? projectRepo.findById(id) : projectRepo.findAll()
+    const projects = await projectRepo.findAll()
 
-    // if (projects && Array.isArray(projects)) {
-    //   return projects
-    // }
+    if (!id) {
+      return projects
+    }
 
-    // throw new Error('Error when requesting projects.')
+    const project = projects
+      .find((project) => project._id.toString() === id)
+
+    return {
+      project,
+      projects: projects.filter((project) => !project.isAbout)
+    }
   }
 
   const createProject = async (projectData) => {

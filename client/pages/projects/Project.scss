@@ -22,5 +22,43 @@
       margin: 0 auto;
       @include project-content;
     }
+
+    &-nav {
+      max-width: 65rem;
+      margin: 3rem auto 0;
+      display: flex;
+      justify-content: space-between;
+
+      a {
+        position: relative;
+        opacity: 0.8;
+        color: #fff;
+        text-transform: uppercase;
+
+        .icon {
+          transition: all .2s ease;
+        }
+
+        &:first-child {
+          .icon {
+            transform: rotate(180deg);
+          }
+
+          &:hover {
+            .icon {
+              transform: rotate(180deg) translateX(10px);
+            }
+          }
+        }
+
+        &:last-child {
+          &:hover {
+            .icon {
+              transform: translateX(10px);
+            }
+          }
+        }
+      }
+    }
   }
 }

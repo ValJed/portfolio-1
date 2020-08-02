@@ -4,6 +4,7 @@ module.exports = ({
   userRepo,
   projectRepo,
   encrypt,
+  sendMail,
   jwt,
   log
 }) => {
@@ -102,11 +103,16 @@ module.exports = ({
     // const user = await repository.deleteOne({})
   }
 
+  const sendUserMail = ({ subject, email, message }) => {
+    return sendMail(subject, email, message)
+  }
+
   return {
     findAll,
     findByEmail,
     create,
     login,
-    verify
+    verify,
+    sendUserMail
   }
 }

@@ -70,5 +70,14 @@ module.exports = ({
     }
   })
 
+  // Send mail
+  router.post('/mail', async (req, res, next) => {
+    const data = req.body
+
+    const response = await userService.sendUserMail(data)
+
+    console.log('response ===> ', require('util').inspect(response, { colors: true, depth: 2 }))
+  })
+
   return router
 }

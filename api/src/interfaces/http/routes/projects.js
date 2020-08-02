@@ -48,10 +48,10 @@ module.exports = ({
     try {
       const { id } = req.params
 
-      const project = await projectService.getProjects(id)
+      const { project, projects } = await projectService.getProjects(id)
 
       if (project) {
-        return res.status(200).send({ project })
+        return res.status(200).send({ project, projects })
       }
     } catch (err) {
       log.error(err)
