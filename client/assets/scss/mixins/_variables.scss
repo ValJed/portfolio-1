@@ -5,6 +5,10 @@ $white: #fff;
 $projectSlideWidth: 60%;
 $projectSlideHeight: 50%;
 
+$slideOpacity: 0.7;
+$slideDurationHalf: .5s;
+$slideDuration: 1s;
+
 @mixin mobile-only {
   @media (max-width: 599px) { @content; }
 }
