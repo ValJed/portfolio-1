@@ -36,6 +36,9 @@ import { apiConfig } from '@/utils/config'
 import Icon from '@/components/common/Icon'
 
 export default {
+  components: {
+    Icon
+  },
   async asyncData (context) {
     const { status: projectStatus, data: { project, projects } } = await network(
       {
@@ -57,9 +60,6 @@ export default {
       apiConfig,
       isMobile: false
     }
-  },
-  components: {
-    Icon
   },
   transition (to, from) {
     if (!['index', 'projects-project'].includes(to.name)) {
