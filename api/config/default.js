@@ -20,5 +20,6 @@ module.exports = {
   uploadConfig: {
     path: 'public/uploads'
   },
-  logConfig: {}
+  logConfig: {},
+  mailConfig: {}
 }

@@ -23,8 +23,6 @@ module.exports = ({ user, pass }) => {
 
     const res = await transporter.sendMail(mailOptions)
 
-    console.log('res ===> ', require('util').inspect(res, { colors: true, depth: 2 }))
-
     return nodemailer.createTransport(config)
   }
 
