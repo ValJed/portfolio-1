@@ -11,6 +11,8 @@ const start = ({
   services
 }) => {
   const { corsConfig, serverConfig } = config
+
+  console.log('corsConfig ===> ', corsConfig)
   const app = express()
   app.disable('x-powered-by')
   app.use(express.json())

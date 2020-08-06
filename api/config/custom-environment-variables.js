@@ -6,7 +6,7 @@ module.exports = {
     uri: 'MONGODB_URI',
     database: 'MONGODB_DB'
   },
-  corsOptions: {
+  corsConfig: {
     origin: 'CORS_ORIGIN',
   },
   cloudinaryConfig: {
