@@ -10,13 +10,15 @@
       <input v-model="email" type="email">
       <label>Message</label>
       <textarea v-model="message" />
-      <button @click.prevent="sendMail(subject, email, message)">Send</button>
+      <button @click.prevent="sendMail(subject, email, message)">
+        Send
+      </button>
     </form>
   </div>
 </template>
 
 <script>
-import network from '@/utils/network'
+// import network from '@/utils/network'
 
 export default {
   data () {
@@ -28,17 +30,17 @@ export default {
   },
   methods: {
     async sendMail (subject, email, message) {
-      const res = await network({
-        method: 'post',
-        route: 'mail',
-        data: {
-          subject,
-          email,
-          message
-        }
-      })
+      // const res = await network({
+      //   method: 'post',
+      //   route: 'mail',
+      //   data: {
+      //     subject,
+      //     email,
+      //     message
+      //   }
+      // })
 
-      console.log('res ===> ', res)
+      // console.log('res ===> ', res)
     }
   }
 }

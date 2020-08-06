@@ -16,7 +16,9 @@ export default {
     const { status: projectStatus, data: { projects } } = await network({ route: 'projects', sendToken: false })
     const { status: imageStatus, data: { images } } = await network({ route: 'images', sendToken: false })
 
-    const onlyProjects = projects.filter(project => !project.isAbout)
+    const onlyProjects = projects && projects.length
+      ? projects.filter(project => !project.isAbout)
+      : []
 
     if (projectStatus === 200 && imageStatus === 200) {
       return {
