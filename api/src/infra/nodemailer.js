@@ -1,8 +1,6 @@
 const nodemailer = require('nodemailer')
 
 module.exports = ({ user, pass }) => {
-  console.log('use ===> ', user)
-
   const config = {
       service: 'gmail',
       // host: 'smtp.ethereal.email',
