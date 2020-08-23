@@ -183,22 +183,4 @@
       }
     }
   }
-
-  @include mobile-only {
-    // animation: 1.1s ease listTransitionMobile;
-    .slide {
-      &-active {
-        animation: 1.1s ease slideTransitionMobile;
-        .project {
-          // animation: 1.1s ease forwards projectTransitionMobile;
-          .project-description {
-            transition: all .2s ease;
-            opacity: 0;
-            // bottom: calc(-4rem - 8.063rem);
-            // left: 17.5%;
-          }
-        }
-      }
-    }
-  }
 }

@@ -4,7 +4,7 @@
       v-if="showSlide || isMobile"
       class="slide"
       :class="{
-        'slide-active': (isCurrentSlide && !isMobile) || (isActive && isMobile),
+        'slide-active': (isCurrentSlide && !isMobile) || (isActive && !isMobile),
         'slide-next': isNextSlide && !isMobile,
       }"
       @click="isActive = true"

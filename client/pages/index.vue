@@ -43,6 +43,7 @@ export default {
         duration: 1000
       }
     }
+
     return {
       name: 'page',
       duration: 300

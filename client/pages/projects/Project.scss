@@ -29,6 +29,27 @@
       display: flex;
       justify-content: space-between;
 
+      @include mobile-only {
+        font-size: .85rem;
+        padding: 0 2rem;
+        a {
+          span {
+            position: relative;
+            background-color: $primary;
+          }
+          &:first-child {
+            span {
+              left: -12px;
+            }
+          }
+          &:last-child {
+            span {
+              right: -12px;
+            }
+          }
+        }
+      }
+
       a {
         position: relative;
         opacity: 0.8;

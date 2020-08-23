@@ -15,10 +15,14 @@
             width="5rem"
             height="1.5rem"
           />
-          Go back
+          <span>
+            Go back
+          </span>
         </nuxt-link>
         <nuxt-link :to="`/projects/${nextId}`">
+        <span>
           Next project
+        </span>
           <icon
             name="arrow-slider"
             width="5rem"
@@ -62,7 +66,8 @@ export default {
     }
   },
   transition (to, from) {
-    if (!['index', 'projects-project'].includes(to.name)) {
+    console.log('to.name ===> ', to.name)
+    if (!['index'].includes(to.name)) {
       return {
         name: 'page',
         duration: 300
