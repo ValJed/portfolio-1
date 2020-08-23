@@ -106,8 +106,6 @@ module.exports = ({
 
     const { public_id, url } = await cloud.uploader.upload(fileData)
 
-    console.log('url ===> ', require('util').inspect(url, { colors: true, depth: 2 }))
-
     const image = {
       name: public_id,
       url
@@ -123,19 +121,6 @@ module.exports = ({
     }
 
     throw new Error('Error when inserting image in database.')
-
-
-    // cloud.uploader.upload(fileData, (err, result) => {
-    //   if (err) {
-    //     console.log('err ===> ', err)
-    //   }
-
-    //   console.log('result ===> ', result)
-    // })
-
-    // const res = cloud.uploader.upload(file.buffer, (err, result) => {
-    //   console.log(result, err);
-    // })
 
     return true
   }
@@ -154,8 +139,6 @@ module.exports = ({
 
   const deleteImage = async (id, name) => {
     const deleted = await cloud.uploader.destroy(name)
-
-    console.log('deleted ===> ', require('util').inspect(deleted, { colors: true, depth: 2 }))
 
     const { deletedCount } = await imageRepo.deleteOne(id)
 

@@ -257,8 +257,6 @@ export default {
         data: fd
       })
 
-      console.log('image ===> ', image)
-
       if (status === 201) {
         // const src = `${apiConfig.url}/uploads/${image.name}`
         const src = image.url
@@ -316,4 +314,4 @@ export default {
 }
 </script>
 
-<style lang="scss" src="./Admin.scss" />
+<style src="./Admin.scss" scoped lang="scss"  />

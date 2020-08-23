@@ -10,8 +10,8 @@ module.exports = {
     origin: 'CORS_ORIGIN',
   },
   cloudinaryConfig: {
-    cloudName: 'CL_NAME',
-    apiKey: 'CL_API_KEY',
-    apiSecret: 'CL_API_SECRET',
+    cloud_name: 'CL_NAME',
+    api_key: 'CL_API_KEY',
+    api_secret: 'CL_API_SECRET',
   }
 }
