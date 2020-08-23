@@ -39,8 +39,6 @@ export default {
       //     message
       //   }
       // })
-
-      // console.log('res ===> ', res)
     }
   }
 }

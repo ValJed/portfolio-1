@@ -66,7 +66,6 @@ export default {
     }
   },
   transition (to, from) {
-    console.log('to.name ===> ', to.name)
     if (!['index'].includes(to.name)) {
       return {
         name: 'page',
