@@ -1,3 +1,31 @@
+@keyframes arrowHoverRight {
+  0% {
+    right: 0rem;
+  }
+
+  50% {
+    right: .5rem;
+  }
+
+  100% {
+    right: 0rem;
+  }
+}
+
+@keyframes arrowHoverLeft {
+  0% {
+    left: 0rem;
+  }
+
+  50% {
+    left: .5rem;
+  }
+
+  100% {
+    left: 0rem;
+  }
+}
+
 .container {
   h1 {
     transition: all .3s linear;
@@ -24,6 +52,7 @@
     }
 
     &-nav {
+      padding: 0 1rem;
       max-width: 65rem;
       margin: 3rem auto 0;
       display: flex;
@@ -38,14 +67,22 @@
             background-color: $primary;
           }
           &:first-child {
-            span {
-              left: -12px;
+            .icon {
+              animation: 1.5s linear 0s infinite normal forwards arrowHoverLeft;
             }
           }
           &:last-child {
-            span {
-              right: -12px;
+            .icon {
+              animation: 1.5s linear 0s infinite normal forwards arrowHoverRight;
             }
+          }
+        }
+      }
+
+      @include mobile-small {
+        a {
+          span {
+            display: none;
           }
         }
       }
@@ -65,17 +102,21 @@
             transform: rotate(180deg);
           }
 
-          &:hover {
-            .icon {
-              transform: rotate(180deg) translateX(10px);
+          @include tablet-portrait {
+            &:hover {
+              .icon {
+                transform: rotate(180deg) translateX(10px);
+              }
             }
           }
         }
 
-        &:last-child {
-          &:hover {
-            .icon {
-              transform: translateX(10px);
+        @include tablet-portrait {
+          &:last-child {
+            &:hover {
+              .icon {
+                transform: translateX(10px);
+              }
             }
           }
         }

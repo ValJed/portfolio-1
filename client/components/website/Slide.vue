@@ -7,7 +7,6 @@
         'slide-active': (isCurrentSlide && !isMobile) || (isActive && !isMobile),
         'slide-next': isNextSlide && !isMobile,
       }"
-      @click="isActive = true"
     >
       <nuxt-link
         v-if="isCurrentSlide || isMobile"

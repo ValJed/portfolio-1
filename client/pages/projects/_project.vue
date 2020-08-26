@@ -66,7 +66,7 @@ export default {
     }
   },
   transition (to, from) {
-    if (!['index'].includes(to.name)) {
+    if (!['projects-project'].includes(to.name)) {
       return {
         name: 'page',
         duration: 300

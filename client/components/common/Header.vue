@@ -12,7 +12,7 @@
       <div
         v-if="isMobile"
         class="burger"
-        :class="{ opened}"
+        :class="{ opened }"
         @click="opened = !opened"
       >
         <div />
