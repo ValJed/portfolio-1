@@ -1,6 +1,7 @@
 node_modules/
 
 config/local.js
+.env
 
 # exclude everything
 public/uploads/*
