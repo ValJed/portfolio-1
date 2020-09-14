@@ -20,6 +20,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/svg-sprite": "^0.4.10",
+    "dotenv": "^8.2.0",
     "nuxt": "^2.13.3",
     "tiptap": "^1.29.3",
     "tiptap-extensions": "^1.31.3",

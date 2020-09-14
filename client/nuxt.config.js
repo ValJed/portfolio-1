@@ -16,7 +16,7 @@ export default {
   },
 
   env: {
-    apiUrl: process.env.API_URI || 'http://localhost:7000/api'
+    apiUrl: process.env.API_URI || 'http://localhost:4000/api'
   },
 
   server: {
