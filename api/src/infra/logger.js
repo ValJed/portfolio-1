@@ -5,15 +5,15 @@ const logger = ({
   name = 'blog',
   level = 'info',
   enabled = true,
-  destination = '/dev/stderr'
 } = {}) => {
+
   return pino({
     name,
     level,
     enabled,
     useLevelLabels: true,
     ...isDev ? { prettyPrint: { colorize: true } } : {}
-  }, pino.destination(destination))
+  }, pino.destination())
 
   // TODO setup or remove
   // return {

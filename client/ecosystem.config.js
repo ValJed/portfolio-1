@@ -3,7 +3,6 @@ module.exports = {
 	  name: 'portfolio',
     script: 'npm run start',
     watch: false,
-	 // autorestart: false,
     instance_var: 'INSTANCE_ID'
   }],
   deploy : {

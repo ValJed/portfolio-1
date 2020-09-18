@@ -1,6 +1,6 @@
 module.exports = {
   serverConfig: {
-    port: 7000
+    port: 4000
   },
   dbConfig: {
     uri: 'mongodb://localhost:27017/portfolio',

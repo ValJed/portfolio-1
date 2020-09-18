@@ -3,7 +3,6 @@ module.exports = {
 	  name: 'portfolio-api',
     script: 'npm run start',
     watch: false,
-	  autorestart: false,
     instance_var: 'INSTANCE_ID'
   }],
   deploy : {
