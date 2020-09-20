@@ -5,7 +5,7 @@
   "author": "Jed",
   "private": true,
   "scripts": {
-    "dev": "API_URI=http://localhost:7000/api nuxt",
+    "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "prod": "npm run build && npm run start",

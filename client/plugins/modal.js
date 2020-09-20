@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Modal from '../components/common/Modal.vue'
 
 const modal = {
-  install (Vue, options) {
+  install (Vue) {
     this.EventBus = new Vue()
 
     Vue.component('modal', Modal)
