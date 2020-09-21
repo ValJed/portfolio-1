@@ -6,7 +6,7 @@
     <form>
       <label>
         Subject
-        <span class="error" v-if="subjectErr" >
+        <span v-if="subjectErr" class="error">
           {{ subjectErr }}
         </span>
       </label>
@@ -20,17 +20,18 @@
       </div>
       <label>
         Mail
-        <span class="error" v-if="emailErr" >
-        {{ emailErr }}
+        <span v-if="emailErr" class="error">
+          {{ emailErr }}
         </span>
       </label>
       <input
         v-model="email"
+        type="text"
         @change="emailErr = null"
-        type="text">
+      >
       <label>
         Message
-        <span class="error" v-if="messageErr">
+        <span v-if="messageErr" class="error">
           {{ messageErr }}
         </span>
       </label>

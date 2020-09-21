@@ -27,28 +27,28 @@
 </template>
 
 <script>
-import network from "@/utils/network";
-import { apiConfig } from "@/utils/config";
-import Icon from "@/components/common/Icon";
+import network from '@/utils/network'
+import { apiConfig } from '@/utils/config'
+import Icon from '@/components/common/Icon'
 
 export default {
   components: {
     Icon
   },
-  async asyncData(context) {
+  async asyncData (context) {
     const {
       status: projectStatus,
       data: { project, projects }
     } = await network({
       route: `projects/${context.params.project}`,
       sendToken: false
-    });
+    })
 
     if (projectStatus === 200) {
-      return { project, projects };
+      return { project, projects }
     }
   },
-  data() {
+  data () {
     return {
       project: {},
       projects: [],
@@ -57,34 +57,34 @@ export default {
       projectId: this.$route.params.project,
       apiConfig,
       isMobile: false
-    };
-  },
-  transition(to, from) {
-    if (!["projects-project"].includes(to.name)) {
-      return {
-        name: "page",
-        duration: 300
-      };
     }
   },
-  mounted() {
-    this.isMobile = window.innerWidth < 599;
-    const projectsLength = this.projects.length;
+  transition (to, from) {
+    if (!['projects-project'].includes(to.name)) {
+      return {
+        name: 'page',
+        duration: 300
+      }
+    }
+  },
+  mounted () {
+    this.isMobile = window.innerWidth < 599
+    const projectsLength = this.projects.length
 
     const currentIndex = this.projects.findIndex(
       project => project._id === this.project._id
-    );
+    )
 
     this.previousId =
       currentIndex === 0
         ? this.projects[projectsLength - 1]._id
-        : this.projects[currentIndex - 1]._id;
+        : this.projects[currentIndex - 1]._id
 
     this.nextId =
       currentIndex === projectsLength - 1
         ? this.projects[0]._id
-        : this.projects[currentIndex + 1]._id;
+        : this.projects[currentIndex + 1]._id
   }
-};
+}
 </script>
 <style src="./Project.scss" scoped lang="scss"></style>
