@@ -14,8 +14,12 @@
         <h3 v-else>
           Edit project
         </h3>
-        <input v-model="project.name" type="text">
-        <input v-model="project.description" type="text">
+        <div class="input-container">
+          <input v-model="project.name" type="text">
+        </div>
+        <div class="input-container">
+          <input v-model="project.description" type="text">
+        </div>
       </div>
       <div
         v-if="project.imgUrl"

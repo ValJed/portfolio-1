@@ -12,10 +12,11 @@ html {
   }
 }
 .container {
-  height: 100vh;
+  height: calc(100vh - 5rem);
   display: flex;
   flex-flow: column;
   align-items: stretch;
+  min-height: none;
 }
 .projects {
   height: calc(100% - 68px);
@@ -41,26 +42,5 @@ html {
         }
       }
     }
-  }
-}
-
-.notifications {
-  padding: 10px;
-  margin: 10px 10px 5px;
-  font-size: 14px;
-  border-radius: 5px;
-  color: #ffffff;
-  background: #44A4FC;
-
-  &.warn {
-    background: #d35400;
-  }
-
-  &.error {
-    background: #c0392b;
-  }
-
-  &.success {
-    background: turquoise;
   }
 }

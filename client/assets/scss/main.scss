@@ -71,6 +71,7 @@ input[type="password"],
 textarea {
   font-size: 1rem;
   border: none;
+  outline: none;
   // border-bottom: solid 1px $secondary;
   // border-right: solid 1px $secondary;
   color: #fff;
@@ -85,6 +86,39 @@ input[type="text"],
 input[type="password"],
 input[type="email"] {
   height: 33px;
+}
+
+.input-container {
+  position: relative;
+
+  // &:before {
+  //   content: '';
+  //   display: block;
+  //   position: absolute;
+  //   background-color: $secondary;
+  //   width: 1px;
+  //   height: 100%;
+  //   left: 0;
+  //   bottom: 0;
+  // }
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: $secondary;
+    width: 40%;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    transition: all .3s ease-in-out;
+  }
+
+  &:focus-within {
+    &:after {
+      width: 100%;
+    }
+  }
 }
 
 button {
@@ -121,6 +155,29 @@ ul {
 }
 li {
   list-style: none;
+}
+
+.notifications {
+  padding: 10px;
+  margin: 10px 10px 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+  color: #ffffff;
+  background: #44A4FC;
+
+  &.warn {
+    background: #d35400;
+  }
+
+  &.error {
+    background: #fff;
+    color: #c0392b;
+  }
+
+  &.success {
+    background: #fff;
+    color: $primary
+  }
 }
 
 // Pages animations

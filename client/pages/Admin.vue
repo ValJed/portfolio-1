@@ -55,6 +55,7 @@ import network from '@/utils/network'
 import { bus } from '@/plugins/bus'
 
 export default {
+  layout: 'admin',
   components: {
     EditProject,
     ProjectList,
@@ -158,8 +159,6 @@ export default {
 
       this.projects = this.projects
         .map(proj => proj._id === project._id ? data : proj)
-
-      // this.selectedProject = data
 
       this.$notify({
         title: 'Project updated',
