@@ -2,28 +2,42 @@ const nodemailer = require('nodemailer')
 
 module.exports = ({ user, pass }) => {
   const config = {
-      service: 'gmail',
-      // host: 'smtp.ethereal.email',
-      // port: 587,
-      // secure: false,
-      auth: {
-        user,
-        pass
-      }
+    host: 'SSL0.OVH.NET',
+    port: 587,
+    secure: false,
+    auth: {
+      user,
+      pass
+    }
   }
-  const transporter = nodemailer.createTransport(config);
+  const transporter = nodemailer.createTransport(config)
 
   return async (subject, email, message) => {
     const mailOptions = {
       from: email,
-      to: user,
+      // to: user,
+      to: 'valentin.jeudy@gmail.com',
       subject: subject,
-      html: message
-    };
+      text: message
+    }
 
-    const res = await transporter.sendMail(mailOptions)
+    try {
+      const { accepted } = await transporter.sendMail(mailOptions)
 
-    return nodemailer.createTransport(config)
+      if (accepted.length) {
+        return {
+          success: true
+        }
+      }
+
+      return {
+        success: false
+      }
+    } catch (err) {
+      console.error(err)
+      return {
+        success: false
+      }
+    }
   }
-
 }

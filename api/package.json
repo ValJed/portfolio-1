@@ -21,6 +21,7 @@
     "datauri": "^3.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "googleapis": "^39.2.0",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.5",
@@ -29,9 +30,9 @@
     "pino": "^6.0.0"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "eslint": "^7.9.0",
     "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",

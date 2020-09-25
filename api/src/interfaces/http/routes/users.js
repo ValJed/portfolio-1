@@ -74,7 +74,13 @@ module.exports = ({
   router.post('/mail', async (req, res, next) => {
     const data = req.body
 
-    const response = await userService.sendUserMail(data)
+    const { success } = await userService.sendUserMail(data)
+
+    if (success) {
+      return res.status(200).send()
+    }
+
+    res.status(500).send()
   })
 
   return router

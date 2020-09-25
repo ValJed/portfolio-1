@@ -2,8 +2,7 @@ const ProjectEntity = require('../../domain/Project')
 const AboutEntity = require('../../domain/About')
 const fs = require('fs')
 const path = require('path')
-const Datauri = require('datauri/parser');
-const { ObjectID } = require('mongodb')
+const Datauri = require('datauri/parser')
 
 const dUri = new Datauri()
 
@@ -13,6 +12,7 @@ module.exports = ({
   imageRepo,
   uploadConfig,
   cloud,
+  // drive,
   encrypt,
   jwt,
   log
@@ -106,6 +106,8 @@ module.exports = ({
 
     const { public_id, url } = await cloud.uploader.upload(fileData)
 
+    // const res = await drive()
+
     const image = {
       name: public_id,
       url
@@ -121,8 +123,6 @@ module.exports = ({
     }
 
     throw new Error('Error when inserting image in database.')
-
-    return true
   }
 
   const unlinkImg = (pathToFile, name) => {
@@ -163,7 +163,7 @@ module.exports = ({
   //   await unlinkImg(pathToFile, name)
   // }
 
-  const getAboutProject = async () => {
+  const getAboutProject = () => {
     return projectRepo.getAboutProject()
   }
 
