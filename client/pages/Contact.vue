@@ -56,9 +56,9 @@ import network from '@/utils/network'
 export default {
   data () {
     return {
-      subject: 'toto',
-      email: 'toto@gmail.fr',
-      message: 'coucou c\'est toto',
+      subject: '',
+      email: '',
+      message: '',
       subjectErr: null,
       emailErr: null,
       messageErr: null
