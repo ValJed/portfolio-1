@@ -106,8 +106,6 @@ module.exports = ({
 
     const { public_id, url } = await cloud.uploader.upload(fileData)
 
-    // const res = await drive()
-
     const image = {
       name: public_id,
       url

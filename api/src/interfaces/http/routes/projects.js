@@ -131,19 +131,19 @@ module.exports = ({
   //   }
   // })
 
-    // Writing and inserting image
-    router.post('/images', verifyToken, upload.single('image'), async (req, res, next) => {
-      try {
-        const { file } = req
+  // Writing and inserting image
+  router.post('/images', verifyToken, upload.single('image'), async (req, res, next) => {
+    try {
+      const { file } = req
 
-        const createdImg = await projectService.createAndUploadImage(file)
+      const createdImg = await projectService.createAndUploadImage(file)
 
-        res.status(201).send(createdImg)
-      } catch (err) {
-        log.error(err)
-        res.status(500).send(err.message)
-      }
-    })
+      res.status(201).send(createdImg)
+    } catch (err) {
+      log.error(err)
+      res.status(500).send(err.message)
+    }
+  })
 
   // Writing and inserting image
   router.delete('/images', verifyToken, async (req, res, next) => {

@@ -12,7 +12,6 @@ const userService = require('./services/userService')
 // Infra
 const database = require('../infra/mongodb')
 const cloudinary = require('../infra/cloudinary')
-// const googleDrive = require('../infra/googleDrive')
 const fileUpload = require('../infra/fileUpload')
 const nodemailer = require('../infra/nodemailer')
 
@@ -28,14 +27,12 @@ const encrypt = require('../infra/encryption')
 const dbConfig = config.get('dbConfig')
 const uploadConfig = config.get('uploadConfig')
 const cloudinaryConfig = config.get('cloudinaryConfig')
-// const googleDriveConfig = config.get('googleDriveConfig')
 const mailConfig = config.get('mailConfig')
 
 const startApp = async () => {
   const client = await database.connect(dbConfig)
   const db = database.db()
   const cloud = cloudinary(cloudinaryConfig)
-  // const drive = googleDrive(googleDriveConfig)
   const sendMail = nodemailer(mailConfig)
 
   const userRepo = userRepository(db)
@@ -53,7 +50,6 @@ const startApp = async () => {
         imageRepo,
         uploadConfig,
         cloud,
-        // drive,
         encrypt,
         jwt: jwt(config),
         log: logger
