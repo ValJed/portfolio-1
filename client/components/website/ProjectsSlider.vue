@@ -50,7 +50,7 @@ export default {
       slidesIndex: 0,
       apiConfig,
       projectsList: this.projects,
-      throttleSlide: this.throttle(this.nextSlide, 1000)
+      throttleSlide: this.throttle(this.nextSlide, 1050)
     }
   },
   created () {
@@ -62,15 +62,21 @@ export default {
     }
   },
   mounted () {
-    // this.throttleSlide = this.throttle(this.nextSlide, 1000)
-
-    window.addEventListener('keyup', (event) => {
-      if (event.keyCode === 39) {
-        this.throttleSlide()
-      }
-    })
+    window.addEventListener('keyup', this.keyup)
+  },
+  beforeDestroy () {
+    window.removeEventListener('keyup', this.keyup)
   },
   methods: {
+    keyup ({ keyCode }) {
+      if (keyCode === 39) {
+        this.throttleSlide()
+      } else if (keyCode === 13) {
+        this.$router.push({
+          path: `/projects/${this.projectsList[this.slidesIndex]._id}`
+        })
+      }
+    },
     throttle (callback, limit) {
       let wait = false
 

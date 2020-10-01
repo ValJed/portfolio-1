@@ -90,6 +90,15 @@ export default {
     isLastSlide () {
       return this.slidesIndex + 1 === this.slidesCount
     }
+  },
+  methods: {
+    keyEnter ({ keyCode }) {
+      if (keyCode === 13) {
+        this.$router.push({
+          path: `/projects/${this.nextId}`
+        })
+      }
+    }
   }
 }
 </script>

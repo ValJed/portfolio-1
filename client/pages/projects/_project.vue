@@ -75,15 +75,18 @@ export default {
       project => project._id === this.project._id
     )
 
-    this.previousId =
-      currentIndex === 0
-        ? this.projects[projectsLength - 1]._id
-        : this.projects[currentIndex - 1]._id
+    this.previousId = currentIndex === 0
+      ? this.projects[projectsLength - 1]._id
+      : this.projects[currentIndex - 1]._id
 
-    this.nextId =
-      currentIndex === projectsLength - 1
-        ? this.projects[0]._id
-        : this.projects[currentIndex + 1]._id
+    this.nextId = currentIndex === projectsLength - 1
+      ? this.projects[0]._id
+      : this.projects[currentIndex + 1]._id
+
+    window.addEventListener('keyEnter', this.keyEnter)
+  },
+  beforeDestroy () {
+    window.removeEventListener('keyEnter', this.keyEnter)
   }
 }
 </script>
