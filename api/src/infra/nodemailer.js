@@ -15,8 +15,7 @@ module.exports = ({ user, pass }) => {
   return async (subject, email, message) => {
     const mailOptions = {
       from: email,
-      // to: user,
-      to: 'valentin.jeudy@gmail.com',
+      to: user,
       subject: subject,
       text: message
     }
