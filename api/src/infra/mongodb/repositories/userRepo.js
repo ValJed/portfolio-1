@@ -8,15 +8,19 @@ const repository = (db) => {
 
     findByUsername: (username) => UsersDb.findOne({ username }),
 
-    // findByUsername: (username) => UsersDb.findOne({ email }),
-
     findUserById: (id) => UsersDb.findOne({ _id: ObjectID(id) }),
+
+    updateUser: (id, newUser) => UsersDb.findOneAndUpdate(
+      { _id: ObjectID(id) },
+      { $set: newUser },
+      { returnOriginal: false }
+    ),
 
     create: (user) => UsersDb.insertOne(user),
 
     deleteOne: (id) => UsersDb.deleteOne({ _id: id }),
 
-    deleteUserProject: (userId, projectId) => UsersDb.findOneAndUpdate(
+    deleteUserProject: (userId, projectId) => UsersDb.updateOne(
       { _id: ObjectID(userId) },
       { $pull: { projectsIds: ObjectID(projectId) } },
       { returnOriginal: false }

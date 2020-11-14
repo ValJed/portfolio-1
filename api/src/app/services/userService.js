@@ -60,17 +60,74 @@ module.exports = ({
     }
   }
 
+  const modify = async ({ username, psw, newUsername, newPsw }) => {
+    if (!username.length || !psw.length) {
+      return {
+        success: false,
+        error: 'Initial username and password should be provided'
+      }
+    }
+
+    const user = await userRepo.findByUsername(username)
+
+    if (!user) {
+      return {
+        success: false,
+        error: 'No user found with this username'
+      }
+    }
+
+    const isPasswordValid = await encrypt.comparePsw(
+      psw,
+      user.password.hash,
+      user.password.salt
+    )
+
+    if (!isPasswordValid) {
+      return {
+        success: false,
+        error: 'Password isn\'t valid'
+      }
+    }
+
+    const password = !!newPsw.length && await encrypt.encryptPsw(newPsw)
+
+    const newUser = {
+      ...newUsername.length && { username: newUsername },
+      ...password && { password }
+    }
+
+    const {
+      lastErrorObject: { updatedExisting }
+    } = await userRepo.updateUser(user._id, newUser)
+
+    if (!updatedExisting) {
+      return {
+        success: false,
+        error: 'Error when updating user in database'
+      }
+    }
+
+    return {
+      success: true
+    }
+  }
+
   const login = async ({ username, password }) => {
     const user = await userRepo.findByUsername(username)
 
     if (!user) {
       return {
         success: false,
-        errors: ['No user found for this email']
+        error: 'No user found with this username'
       }
     }
 
-    const isPasswordValid = await encrypt.comparePsw(password, user.password.hash, user.password.salt)
+    const isPasswordValid = await encrypt.comparePsw(
+      password,
+      user.password.hash,
+      user.password.salt
+    )
 
     if (isPasswordValid) {
       const projects = await projectRepo.findAll()
@@ -87,7 +144,7 @@ module.exports = ({
 
     return {
       success: false,
-      msg: 'Password isn\'t valid'
+      error: 'Password isn\'t valid'
     }
   }
 
@@ -99,10 +156,6 @@ module.exports = ({
     }
   }
 
-  const remove = () => {
-    // const user = await repository.deleteOne({})
-  }
-
   const sendUserMail = ({ subject, email, message }) => {
     return sendMail(subject, email, message)
   }
@@ -111,6 +164,7 @@ module.exports = ({
     findAll,
     findByEmail,
     create,
+    modify,
     login,
     verify,
     sendUserMail

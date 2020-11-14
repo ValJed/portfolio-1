@@ -11,7 +11,7 @@ const encryptPsw = (password) => {
 }
 
 const comparePsw = async (password, hash, salt) => {
-  const hashPassword = await crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha512').toString('hex')
+  const hashPassword = crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha512').toString('hex')
 
   return hashPassword === hash
 }

@@ -34,7 +34,7 @@ module.exports = ({
       if (response.success) {
         res.status(200).send(response)
       } else {
-        res.status(400).send(response)
+        res.status(401).send(response)
       }
     } catch (err) {
       log.error(err)
@@ -66,7 +66,25 @@ module.exports = ({
       }
     } catch (err) {
       log.error(err)
-      res.status(400).send(err.message)
+      res.status(500).send(err.message)
+    }
+  })
+
+  // Updating user
+  router.put('/users', async (req, res, next) => {
+    try {
+      const data = req.body
+
+      const response = await userService.modify(data)
+
+      if (response.success) {
+        res.status(200).send(response)
+      } else {
+        res.status(400).send(response)
+      }
+    } catch (err) {
+      log.error(err)
+      res.status(500).send(err.message)
     }
   })
 

@@ -136,30 +136,18 @@ module.exports = ({
   }
 
   const deleteImage = async (id, name) => {
-    const deleted = await cloud.uploader.destroy(name)
+    const { result } = await cloud.uploader.destroy(name)
+
+    if (result !== 'ok') {
+      throw new Error('Error when deleting image in cloudinary')
+    }
 
     const { deletedCount } = await imageRepo.deleteOne(id)
 
     if (deletedCount !== 1) {
       log.info(`This img doesn't exists in DB ${name}`)
     }
-
-    // const pathToFile = path.join(process.cwd(), uploadConfig.path)
-
-    // await unlinkImg(pathToFile, name)
   }
-
-  // const deleteImage = async (id, name) => {
-  //   const { deletedCount } = await imageRepo.deleteOne(id)
-
-  //   if (deletedCount !== 1) {
-  //     log.info(`This img doesn't exists in DB ${name}`)
-  //   }
-
-  //   const pathToFile = path.join(process.cwd(), uploadConfig.path)
-
-  //   await unlinkImg(pathToFile, name)
-  // }
 
   const getAboutProject = () => {
     return projectRepo.getAboutProject()

@@ -28,6 +28,7 @@ const dbConfig = config.get('dbConfig')
 const uploadConfig = config.get('uploadConfig')
 const cloudinaryConfig = config.get('cloudinaryConfig')
 const mailConfig = config.get('mailConfig')
+const jwtConfig = config.get('jwtConfig')
 
 const startApp = async () => {
   const client = await database.connect(dbConfig)
@@ -51,7 +52,7 @@ const startApp = async () => {
         uploadConfig,
         cloud,
         encrypt,
-        jwt: jwt(config),
+        jwt: jwt(jwtConfig),
         log: logger
       }),
       user: userService({
@@ -59,7 +60,7 @@ const startApp = async () => {
         projectRepo,
         encrypt,
         sendMail,
-        jwt: jwt(config),
+        jwt: jwt(jwtConfig),
         log: logger
       })
     }
