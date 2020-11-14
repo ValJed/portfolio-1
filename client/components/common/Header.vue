@@ -1,7 +1,5 @@
 <template>
-  <header
-    :class="{opened}"
-  >
+  <header :class="{opened}">
     <div class="logo">
       <icon
         name="logo"
@@ -36,6 +34,14 @@
           <nuxt-link to="/contact">
             contact
           </nuxt-link>
+        </li>
+        <li v-if="isAdmin">
+          <nuxt-link to="/admin">
+            admin
+          </nuxt-link>
+        </li>
+        <li v-if="isAdmin" @click="logout">
+          logout
         </li>
       </ul>
       <ul v-else-if="opened" class="menu">
@@ -88,6 +94,10 @@ export default {
     isMobile: {
       type: Boolean,
       required: true
+    },
+    isAdmin: {
+      type: Boolean,
+      required: false
     }
   },
   data () {
@@ -103,6 +113,9 @@ export default {
   methods: {
     closeMenu () {
       this.opened = false
+    },
+    logout () {
+      this.$emit('logout')
     }
   }
 }

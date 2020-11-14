@@ -46,7 +46,6 @@
         Send
       </button>
     </form>
-    <notifications position="bottom left" classes="notifications" />
   </div>
 </template>
 

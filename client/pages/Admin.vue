@@ -1,7 +1,9 @@
 <template>
-  <div class="container">
+  <div class="page-admin">
     <!-- <Header :is-mobile="isMobile" /> -->
     <modal v-if="authorized" />
+
+    <credentials-modal ref="credentialsModal" />
 
     <div v-if="authorized" class="projects">
       <div class="projects-list">
@@ -10,6 +12,9 @@
         </button>
         <button @click="aboutEditing = true">
           Edit about page
+        </button>
+        <button @click="showCrendentialsModal">
+          Modify credentials
         </button>
         <project-list
           :projects="projects"
@@ -38,8 +43,6 @@
     </div>
     <NotFound v-else-if="authorized === false" />
     <div v-else />
-
-    <notifications position="bottom left" classes="notifications" />
   </div>
 </template>
 
@@ -49,22 +52,31 @@ import EditProject from '@/components/admin/EditProject'
 import ProjectList from '@/components/admin/ProjectList'
 import EditAbout from '@/components/admin/EditAbout'
 import NotFound from '@/pages/NotFound'
+import CredentialsModal from '@/components/admin/CredentialsModal'
 
 import network from '@/utils/network'
 
 import { bus } from '@/plugins/bus'
 
 export default {
-  layout: 'admin',
+  // layout: 'admin',
   components: {
     EditProject,
     ProjectList,
     EditAbout,
-    NotFound
+    NotFound,
+    CredentialsModal
   },
   async asyncData (context) {
-    const { status: projectStatus, data: { projects } } = await network({ route: 'projects', sendToken: false })
-    const { status: imageStatus, data: { images } } = await network({ route: 'images', sendToken: false })
+    const {
+      status: projectStatus,
+      data: { projects }
+    } = await network({ route: 'projects', sendToken: false })
+
+    const {
+      status: imageStatus,
+      data: { images }
+    } = await network({ route: 'images', sendToken: false })
 
     const aboutPage = projects.find(project => project.isAbout)
 
@@ -119,7 +131,7 @@ export default {
         this.selectedProject = data
       } else if (status === 401) {
         this.$notify({
-          text: 'You\'re not authenticated',
+          title: 'You\'re not authenticated',
           type: 'error'
         })
 
@@ -128,7 +140,7 @@ export default {
         }, 700)
       } else {
         return this.$notify({
-          text: 'Error when creating project',
+          title: 'Error when creating project',
           type: 'error'
         })
       }
@@ -143,7 +155,7 @@ export default {
 
       if (status === 401) {
         this.$notify({
-          text: 'You\'re not authenticated',
+          title: 'You\'re not authenticated',
           type: 'error'
         })
 
@@ -152,7 +164,7 @@ export default {
         }, 700)
       } else if (status !== 200) {
         return this.$notify({
-          text: 'Error when updating project',
+          title: 'Error when updating project',
           type: 'error'
         })
       }
@@ -194,7 +206,7 @@ export default {
         })
       } else if (status === 401) {
         this.$notify({
-          text: 'You\'re not authenticated',
+          title: 'You\'re not authenticated',
           type: 'error'
         })
 
@@ -308,9 +320,22 @@ export default {
     selectProject (project) {
       this.aboutEditing = false
       this.selectedProject = project
+    },
+
+    showCrendentialsModal () {
+      this.$refs.credentialsModal.showModal()
+      // bus.$emit('show-modal', {
+      //   title: 'Modify crendentials ?',
+      //   action: this.deleteProject,
+      //   params: id
+      // })
+    },
+
+    updateCrendentials (data) {
+      console.log('data ===> ', data)
     }
   }
 }
 </script>
 
-<style src="./Admin.scss" scoped lang="scss"  />
+<style src="./Admin.scss" lang="scss"  />

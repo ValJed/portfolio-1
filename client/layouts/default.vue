@@ -1,14 +1,17 @@
 <template>
   <div class="container">
-    <Header :is-mobile="isMobile" />
+    <Header :is-mobile="isMobile" :is-admin="isLogged" @logout="logout" />
     <nuxt />
     <Footer />
+
+    <notifications position="bottom left" classes="notifications" />
   </div>
 </template>
 
 <script>
 import Header from '@/components/common/Header'
 import Footer from '@/components/website/Footer'
+import network from '@/utils/network'
 
 export default {
   components: {
@@ -17,50 +20,41 @@ export default {
   },
   data () {
     return {
-      isMobile: false
+      isMobile: false,
+      isLogged: false
     }
   },
-  mounted () {
+  created () {
+    this.$nuxt.$on('logged-in', () => {
+      this.isLogged = true
+    })
+  },
+  async mounted () {
     this.isMobile = window.innerWidth < 599
+
+    if (document.cookie.includes('portfolio-token')) {
+      const { status } = await network({ route: 'verify' })
+
+      if (status === 200) {
+        this.isLogged = true
+      }
+    }
+  },
+  methods: {
+    logout () {
+      document.cookie = 'portfolio-token=;'
+
+      this.isLogged = false
+
+      this.$notify({
+        title: 'You just logged out',
+        type: 'success'
+      })
+
+      if (this.$router.currentRoute.name === 'Admin') {
+        this.$router.push('/')
+      }
+    }
   }
 }
 </script>
-
-<style>
-
-/* *,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-} */
-</style>

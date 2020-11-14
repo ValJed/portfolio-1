@@ -1,44 +1,46 @@
-html {
+body {
   height: 100vh;
+  overflow: hidden;
 }
 
-.header {
-  background: #000;
-  padding: 15px 30px;
-  h1 {
-    color: #fff;
-    margin: 0;
-    text-align: left;
-  }
-}
-.container {
+// .header {
+//   background: #000;
+//   padding: 15px 30px;
+//   h1 {
+//     color: #fff;
+//     margin: 0;
+//     text-align: left;
+//   }
+// }
+.page-admin {
   height: calc(100vh - 5rem);
   display: flex;
   flex-flow: column;
   align-items: stretch;
   min-height: none;
-}
-.projects {
-  height: calc(100% - 68px);
-  display: flex;
-  flex: 1 1 auto;
-  padding: 30px 30px 0;
-  > .projects-list {
-    width: 20rem;
-    @include desktop {
-      width: 50%;
+
+  .projects {
+    height: calc(100% - 68px);
+    display: flex;
+    flex: 1 1 auto;
+    padding: 30px 30px 0;
+    > .projects-list {
+      width: 20rem;
+      @include desktop {
+        width: 50%;
+      }
     }
-  }
-  > .projects-edition {
-    flex: 1;
-    // width: 50%;
-  }
-  &-edition {
-    .editor {
-      height: 100%;
-      .content {
-        >div {
-          height: 100%;
+    > .projects-edition {
+      flex: 1;
+      // width: 50%;
+    }
+    &-edition {
+      .editor {
+        height: 100%;
+        .content {
+          >div {
+            height: 100%;
+          }
         }
       }
     }
