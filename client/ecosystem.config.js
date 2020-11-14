@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'portfolio',
-      script: 'npm run start',
+      script: 'npm run build && npm run start',
       watch: false,
       instance_var: 'INSTANCE_ID'
     }
@@ -19,4 +19,4 @@ module.exports = {
       'pre-setup': ''
     }
   }
-};
+}
