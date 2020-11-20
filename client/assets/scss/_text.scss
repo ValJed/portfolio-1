@@ -47,7 +47,8 @@ p {
 
   @include tablet-portrait {
     font-size: 1.125rem;
-    line-height: 1.75rem;
+    line-height: 1.70rem;
+    letter-spacing: -0.2px;
   }
 
   @include mobile-only {
