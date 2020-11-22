@@ -14,8 +14,22 @@ then, do the same thing in the `client` folder.
 ### Run project
 
 Go into the portfolio folder then run two commands :
-* `npm run mongo` to run mongodb as a container wit docker
+* `npm run mongo` to run mongodb as a container with docker
 * `npm run dev` tu run the nuxt server, and the api one
+
+You wouldn't access the admin part without any user.
+
+The route to create a user is only open in dev mode
+
+To create one user, make a `POST` requet on http://localhost:4000/api/users
+with a body that looks like this :
+```json
+{
+   "username": "my_name",
+   "email": "my_email@email.fr",
+   "password" : "my_psw"
+}
+```
 
 ## Hidden config
 
