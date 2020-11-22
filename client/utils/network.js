@@ -23,11 +23,8 @@ export default async ({
       ...data && { data }
     })
   } catch (err) {
-    console.error(
-      `Error during get request on API:
-      ${err.response.statusText}`
-    )
-    return err.response
+    console.error((err.response && err.response.statusText) || err)
+    return err.response || err
   }
 }
 
