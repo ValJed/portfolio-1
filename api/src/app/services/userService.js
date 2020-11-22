@@ -33,7 +33,7 @@ module.exports = ({
     }
     return {
       success: false,
-      errros: ['No user found for this email']
+      error: 'No user found for this email'
     }
   }
 
@@ -43,7 +43,7 @@ module.exports = ({
     if (existingUser) {
       return {
         success: false,
-        errors: ['This email already match an account']
+        error: 'This email already match an account'
       }
     }
 

@@ -245,7 +245,7 @@ export default {
         })
       }
 
-      if (id === this.selectedProject._id) {
+      if (this.selectedProject && this.selectedProject._id === id) {
         this.selectedProject = null
       }
 

@@ -52,23 +52,29 @@ module.exports = ({
     }
   })
 
-  // Creating new user
-  router.post('/users', async (req, res, next) => {
-    try {
-      const data = req.body
+  // Creating new user only in dev mode
+  if (process.env.NODE_ENV === 'development') {
+    router.post('/users', async (req, res, next) => {
+      try {
+        const { username, email, password } = req.body
 
-      const response = await userService.create(data)
+        if (!username || !email || !password) {
+          return res.status(400).send('You need to define username, email, and password')
+        }
 
-      if (response.success) {
-        res.status(201).send(response)
-      } else {
-        res.status(400).send(response)
+        const response = await userService.create({ username, email, password })
+
+        if (response.success) {
+          res.status(201).send(response)
+        } else {
+          res.status(400).send(response)
+        }
+      } catch (err) {
+        log.error(err)
+        res.status(500).send(err.message)
       }
-    } catch (err) {
-      log.error(err)
-      res.status(500).send(err.message)
-    }
-  })
+    })
+  }
 
   // Updating user
   router.put('/users', async (req, res, next) => {

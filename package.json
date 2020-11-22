@@ -10,6 +10,10 @@
   "engines": {
     "node": "12.16.1"
   },
+  "scripts": {
+    "dev": "(cd ./client/ && npm run dev) & (cd ./api/ && npm run dev)",
+    "mongo": "docker-compose up"
+  },
   "author": "Jed",
   "license": "ISC",
   "bugs": {
