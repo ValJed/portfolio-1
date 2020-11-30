@@ -29,8 +29,8 @@
 .container {
   h1 {
     transition: all .3s linear;
-    max-width: 65rem;
-    margin: 4rem auto;
+    max-width: 62rem;
+    margin: 6rem auto 3rem;
     padding: 0 1rem;
   }
 
@@ -46,14 +46,14 @@
     }
 
     &-content {
-      max-width: 65rem;
+      max-width: 62rem;
       margin: 0 auto;
       @include project-content;
     }
 
     &-nav {
       padding: 0 1rem;
-      max-width: 65rem;
+      max-width: 62rem;
       margin: 3rem auto 0;
       display: flex;
       justify-content: space-between;

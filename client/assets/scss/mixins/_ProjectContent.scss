@@ -16,7 +16,7 @@
   }
 
   h3 {
-    margin: 3.563rem 0 1.25rem;
+    margin: 2rem 0 0.5rem;
     font-size: 18px;
     font-weight: normal;
     text-transform: uppercase;
@@ -25,12 +25,13 @@
   p, .let, .center, .right {
     color: #fff;
     font-size: 15px;
-    margin: .4rem 0;
+    //margin: .4rem 0;
   }
 
   img {
     max-width: 100%;
     // max-height: 300px;
+    padding: 5% 0;
   }
 
   .left {
