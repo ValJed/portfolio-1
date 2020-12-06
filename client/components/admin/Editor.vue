@@ -40,7 +40,6 @@
                 >
                 <button type="submit">
                   Add Link
-                  <!-- <icon name="link" /> -->
                 </button>
               </form>
             </div>
@@ -87,20 +86,6 @@
         >
           <icon name="underline" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
-        <!-- <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.code() }"
-          @click="commands.code"
-        >
-          <icon name="code" />
-        </button> -->
-        <!-- <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.paragraph() }"
-          @click="commands.paragraph"
-        >
-          <icon name="left" />
-        </button> -->
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.link() }"
@@ -358,7 +343,6 @@ export default {
     showLinkMenu (attrs) {
       this.linkUrl = attrs.href
 
-      console.log('this.linkUrl ===> ', this.linkUrl)
       this.linkMenuIsActive = true
       this.$nextTick(() => {
         this.$refs.linkInput.focus()
@@ -369,8 +353,6 @@ export default {
       this.linkMenuIsActive = false
     },
     setLinkUrl (command, url) {
-      console.log('command ===> ', command)
-      console.log('url ===> ', url)
       command({ href: url })
       this.hideLinkMenu()
     }
