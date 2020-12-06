@@ -59,7 +59,6 @@ import network from '@/utils/network'
 import { bus } from '@/plugins/bus'
 
 export default {
-  // layout: 'admin',
   components: {
     EditProject,
     ProjectList,
