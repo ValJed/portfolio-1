@@ -8,11 +8,45 @@
       :delete-img="deleteImg"
       :update-main-img="updateMainImg"
     />
+
     <editor-menu-bar class="editor-menu" :editor="editor">
       <div
-        slot-scope="{ commands, isActive }"
+        slot-scope="{ commands, isActive, getMarkAttrs }"
         class="menubar"
       >
+        <transition name="fade">
+          <div
+            v-if="linkMenuIsActive"
+            class="modal-container"
+          >
+            <div
+              v-closable="{
+                className: 'modal-container',
+                handler: 'hideLinkMenu',
+              }"
+              class="modal"
+            >
+              <form
+                class="link-modal"
+                @submit.prevent="setLinkUrl(commands.link, linkUrl)"
+              >
+                <input
+                  ref="linkInput"
+                  v-model="linkUrl"
+                  class="menububble__input"
+                  type="text"
+                  placeholder="https://"
+                  @keydown.esc="hideLinkMenu"
+                >
+                <button type="submit">
+                  Add Link
+                  <!-- <icon name="link" /> -->
+                </button>
+              </form>
+            </div>
+          </div>
+        </transition>
+
         <button
           class="menubar__button"
           @click="commands.undo"
@@ -67,6 +101,13 @@
         >
           <icon name="left" />
         </button> -->
+        <button
+          class="menubar__button"
+          :class="{ 'is-active': isActive.link() }"
+          @click="showLinkMenu(getMarkAttrs('link'))"
+        >
+          <icon name="link" width="0.8rem" height="0.8rem" fill="#fff" />
+        </button>
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.customText({ align: 'left' }) }"
@@ -184,7 +225,12 @@
 </template>
 
 <script>
-import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
+import {
+  Editor,
+  EditorContent,
+  EditorMenuBar
+  // EditorMenuBubble
+} from 'tiptap'
 import {
   Blockquote,
   CodeBlock,
@@ -214,6 +260,7 @@ export default {
   components: {
     EditorContent,
     EditorMenuBar,
+    // EditorMenuBubble,
     Icon,
     ImageModal
   },
@@ -255,6 +302,8 @@ export default {
   data () {
     return {
       editorHeight: 0,
+      linkUrl: null,
+      linkMenuIsActive: false,
       editor: new Editor({
         extensions: [
           new Blockquote(),
@@ -305,6 +354,25 @@ export default {
   methods: {
     openModal (command) {
       this.$refs.imgModal.showModal(command)
+    },
+    showLinkMenu (attrs) {
+      this.linkUrl = attrs.href
+
+      console.log('this.linkUrl ===> ', this.linkUrl)
+      this.linkMenuIsActive = true
+      this.$nextTick(() => {
+        this.$refs.linkInput.focus()
+      })
+    },
+    hideLinkMenu () {
+      this.linkUrl = null
+      this.linkMenuIsActive = false
+    },
+    setLinkUrl (command, url) {
+      console.log('command ===> ', command)
+      console.log('url ===> ', url)
+      command({ href: url })
+      this.hideLinkMenu()
     }
   }
 }

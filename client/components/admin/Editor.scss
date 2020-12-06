@@ -1,3 +1,6 @@
+@include modal-transition;
+
+
 .editor {
   flex: 1;
   display: flex;
@@ -22,6 +25,22 @@
       outline: none;
       min-height: 100%;
       padding: 7px 0;
+    }
+  }
+}
+
+.modal {
+  &-container {
+    @include modal-container;
+
+    .link-modal {
+      padding: 1rem;
+      background-color: $primary;
+      max-width: 20rem;
+
+      button {
+        margin-top: 1rem;
+      }
     }
   }
 }

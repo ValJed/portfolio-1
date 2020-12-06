@@ -28,6 +28,12 @@
     //margin: .4rem 0;
   }
 
+  a {
+    cursor: pointer;
+    color: $secondary;
+    text-decoration: underline;
+  }
+
   img {
     max-width: 100%;
     // max-height: 300px;
