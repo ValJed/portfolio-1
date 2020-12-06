@@ -114,23 +114,19 @@
         >
           <icon name="right" width="0.8rem" height="0.8rem" fill="#fff" />
         </button>
-
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.customColumn({ columnSize: 1 }) }"
           @click="commands.customColumn({ columnSize: 1 })"
         >
           I
-          <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#fff" /> -->
         </button>
-
         <button
           class="menubar__button"
           :class="{ 'is-active': isActive.customColumn({ columnSize: 2 }) }"
           @click="commands.customColumn({ columnSize: 2 })"
         >
           II
-          <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#fff" /> -->
         </button>
         <button
           class="menubar__button"
@@ -138,9 +134,7 @@
           @click="commands.customColumn({ columnSize: 3 })"
         >
           III
-          <!-- <icon name="left" width="0.8rem" height="0.8rem" fill="#fff" /> -->
         </button>
-
         <button
           v-if="images"
           class="menubar__button"
@@ -214,7 +208,6 @@ import {
   Editor,
   EditorContent,
   EditorMenuBar
-  // EditorMenuBubble
 } from 'tiptap'
 import {
   Blockquote,
@@ -245,7 +238,6 @@ export default {
   components: {
     EditorContent,
     EditorMenuBar,
-    // EditorMenuBubble,
     Icon,
     ImageModal
   },
